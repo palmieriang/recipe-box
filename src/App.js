@@ -10,10 +10,26 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel'
 import FormControl from 'react-bootstrap/lib/FormControl'
 
 class App extends Component {
+
+  state = {
+    recipes: [
+    {recipeName: 'Name1', ingredients: ['ingredients1', 'ingredients2', 'ingredients3']},
+    {recipeName: 'Name2', ingredients: ['ingredients1', 'ingredients2', 'ingredients3']},
+    {recipeName: 'Name3', ingredients: ['ingredients1', 'ingredients2', 'ingredients3']}
+    ]
+  }
+
   render() {
+    const {recipes} = this.state
     return (
       <div className="App">
-      test
+        <Accordion>
+          {recipes.map((recipe, index) => (
+            <Panel header={recipe.recipeName} eventKey={index} key={index}>
+
+            </Panel>
+          ))}
+        </Accordion>
       </div>
     );
   }
