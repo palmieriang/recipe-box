@@ -27,8 +27,9 @@ class App extends Component {
     this.setState({recipes})
   }
 
-  updateRecipe(name) {
-
+  updateRecipe(name, ingredients) {
+    debugger
+    this.setState({newRecipe: {recipeName: name, ingredients: [ingredients]}})
   }
 
   addRecipe() {
@@ -46,7 +47,7 @@ class App extends Component {
   }
 
   render() {
-    const {recipes} = this.state
+    const {recipes, newRecipe} = this.state
     return (
       <div className="App container">
         <Accordion>
@@ -70,7 +71,12 @@ class App extends Component {
             <Modal.Body>
               <FormGroup>
                 <ControlLabel>Recipe Name</ControlLabel>
-                <FormControl type="text" value="newRecipe.recipeName" placeholder="Enter Recipe Name" onChange={(event)=>this.updateNewRecipe(event.target.value)}></FormControl>
+                <FormControl
+                  type="text"
+                  value="newRecipe.recipeName"
+                  placeholder="Enter Recipe Name"
+                  onChange={(event)=>this.updateRecipe(event.target.value, newRecipe.ingredients )}>
+                </FormControl>
               </FormGroup>
             </Modal.Body>
           </Modal.Header>
