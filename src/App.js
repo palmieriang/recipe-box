@@ -28,8 +28,7 @@ class App extends Component {
   }
 
   updateRecipe(name, ingredients) {
-    debugger
-    this.setState({newRecipe: {recipeName: name, ingredients: [ingredients]}})
+     this.setState({newRecipe: {recipeName: name, ingredients: [ingredients]}})
   }
 
   addRecipe() {
@@ -69,7 +68,7 @@ class App extends Component {
           <Modal.Header closeButton>
             <Modal.Title>Add Recipe</Modal.Title>
             <Modal.Body>
-              <FormGroup>
+              <FormGroup controlId="formBasicText">
                 <ControlLabel>Recipe Name</ControlLabel>
                 <FormControl
                   type="text"
@@ -78,7 +77,17 @@ class App extends Component {
                   onChange={(event)=>this.updateRecipe(event.target.value, newRecipe.ingredients )}>
                 </FormControl>
               </FormGroup>
+              <FormGroup controlId="formControlTextarea">
+                <ControlLabel>Recipe Name</ControlLabel>
+                <FormControl
+                  type="textarea"
+                  value="newRecipe.recipeName"
+                  placeholder="Enter Ingredients (separate by commas)"
+                  onChange={(event)=>this.updateRecipe(newRecipe.recipeName, event.target.value.split(","))}>
+                </FormControl>
+              </FormGroup>
             </Modal.Body>
+            <Modal.Footer></Modal.Footer>
           </Modal.Header>
         </Modal>
         <Button bsStyle="primary" onClick={(event)=>this.open('showAdd')}>Add Recipe</Button>
