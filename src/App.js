@@ -28,7 +28,7 @@ class App extends Component {
   }
 
   updateNewRecipe(name, ingredients) {
-     this.setState({newRecipe: {recipeName: name, ingredients: [ingredients]}})
+     this.setState({newRecipe: {recipeName: name, ingredients: ingredients}})
   }
 
   saveNewRecipe() {
@@ -53,6 +53,7 @@ class App extends Component {
 
   render() {
     const {recipes, newRecipe} = this.state
+    console.log(newRecipe)
     return (
       <div className="App container">
         {recipes.length > 0 && (
