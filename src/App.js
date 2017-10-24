@@ -18,6 +18,7 @@ class App extends Component {
       {recipeName: 'Name3', ingredients: ['ingredients1', 'ingredients2', 'ingredients3']}
     ],
     showAdd: false,
+    showEdit: false,
     newRecipe: {recipeName: '', ingredients: []}
   }
 
@@ -48,6 +49,8 @@ class App extends Component {
   close = () => {
     if (this.state.showAdd) {
       this.setState({showAdd: false})
+    } else if (this.state.showEdit) {
+      this.setState({showEdit: false})
     }
   }
 
@@ -70,6 +73,41 @@ class App extends Component {
                   <Button bsStyle="default">Edit Recipe</Button>
                 </ButtonToolbar>
               </Panel>
+
+
+
+        <Modal show={this.state.showEdit} onHide={this.close}>
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Recipe</Modal.Title>
+            <Modal.Body>
+              <FormGroup controlId="formBasicText">
+                <ControlLabel>Recipe Name</ControlLabel>
+                <FormControl
+                  type="text"
+                  value={newRecipe.recipeName}
+                  placeholder="Enter Recipe Name"
+                  onChange={(event)=>this.updateNewRecipe(event.target.value, newRecipe.ingredients )}>
+                </FormControl>
+              </FormGroup>
+              <FormGroup controlId="formControlTextarea">
+                <ControlLabel>Recipe Name</ControlLabel>
+                <FormControl
+                  type="textarea"
+                  value={newRecipe.ingredients}
+                  placeholder="Enter Ingredients (separate by commas)"
+                  onChange={(event)=>this.updateNewRecipe(newRecipe.recipeName, event.target.value.split(","))}>
+                </FormControl>
+              </FormGroup>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={(event)=>this.saveNewRecipe()}>Save New Recipe</Button>
+            </Modal.Footer>
+          </Modal.Header>
+        </Modal>
+
+
+
+
             ))}
           </Accordion>
         )}
