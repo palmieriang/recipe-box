@@ -23,9 +23,15 @@ class App extends Component {
     newRecipe: {recipeName: '', ingredients: []}
   }
 
+  componentDidMount() {
+    let recipes = JSON.parse(localStorage.getItem('recipes')) || this.state.recipes
+    this.setState({recipes})
+  }
+
   updateRecipeName(name, index) {
     let recipes = this.state.recipes.slice()
     recipes[index] = {recipeName: name, ingredients: recipes[index].ingredients}
+    localStorage.setItem('recipes', JSON.stringify(recipes))
     this.setState({recipes})
   }
 
@@ -80,7 +86,6 @@ class App extends Component {
           <div>
             <Accordion>
               {recipes.map((recipe, index) => (
-
                 <Panel header={recipe.recipeName} eventKey={index} key={index}>
                   <ol>
                     {recipe.ingredients.map((ingredient, index) => (
@@ -94,7 +99,6 @@ class App extends Component {
                 </Panel>
               ))}
             </Accordion>
-
             <Modal show={this.state.showEdit} onHide={this.close}>
               <Modal.Header closeButton>
                 <Modal.Title>Edit Recipe</Modal.Title>
