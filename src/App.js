@@ -19,7 +19,20 @@ class App extends Component {
     ],
     showAdd: false,
     showEdit: false,
+    currentIndex: 0,
     newRecipe: {recipeName: '', ingredients: []}
+  }
+
+  updateRecipeName(name, index) {
+    let recipes = this.state.recipes.slice()
+    recipes[index] = {recipeName: name, ingredients: recipes[index].ingredients}
+    this.setState({recipes})
+  }
+
+  updateIngredients(ingredients, index) {
+    let recipes = this.state.recipes.slice()
+    recipes[index] = {recipeName: recipes[index].recipeName, ingredients: ingredients}
+    this.setState({recipes})
   }
 
   deleteRecipe(index) {
@@ -42,74 +55,75 @@ class App extends Component {
     this.close()
   }
 
-  open = (state) => {
-    this.setState({[state]: true})
+  open = (state, index) => {
+    this.setState({
+      [state]: true,
+      currentIndex: index
+    })
   }
 
   close = () => {
     if (this.state.showAdd) {
       this.setState({showAdd: false})
-    } else if (this.state.showEdit) {
+    }
+    if (this.state.showEdit) {
       this.setState({showEdit: false})
     }
   }
 
   render() {
-    const {recipes, newRecipe} = this.state
+    const {recipes, newRecipe, currentIndex} = this.state
     console.log(newRecipe)
     return (
       <div className="App container">
         {recipes.length > 0 && (
-          <Accordion>
-            {recipes.map((recipe, index) => (
-              <Panel header={recipe.recipeName} eventKey={index} key={index}>
-                <ol>
-                  {recipe.ingredients.map((ingredient, index) => (
-                    <li key={index}>{ingredient}</li>
-                  ))}
-                </ol>
-                <ButtonToolbar>
-                  <Button bsStyle="danger" onClick={(event)=>this.deleteRecipe(index)}>Delete Recipe</Button>
-                  <Button bsStyle="default">Edit Recipe</Button>
-                </ButtonToolbar>
-              </Panel>
+          <div>
+            <Accordion>
+              {recipes.map((recipe, index) => (
 
+                <Panel header={recipe.recipeName} eventKey={index} key={index}>
+                  <ol>
+                    {recipe.ingredients.map((ingredient, index) => (
+                      <li key={index}>{ingredient}</li>
+                    ))}
+                  </ol>
+                  <ButtonToolbar>
+                    <Button bsStyle="danger" onClick={(event)=>this.deleteRecipe(index)}>Delete Recipe</Button>
+                    <Button bsStyle="default" onClick={(event)=>this.open("showEdit", index)}>Edit Recipe</Button>
+                  </ButtonToolbar>
+                </Panel>
+              ))}
+            </Accordion>
 
-
-        <Modal show={this.state.showEdit} onHide={this.close}>
-          <Modal.Header closeButton>
-            <Modal.Title>Edit Recipe</Modal.Title>
-            <Modal.Body>
-              <FormGroup controlId="formBasicText">
-                <ControlLabel>Recipe Name</ControlLabel>
-                <FormControl
-                  type="text"
-                  value={newRecipe.recipeName}
-                  placeholder="Enter Recipe Name"
-                  onChange={(event)=>this.updateNewRecipe(event.target.value, newRecipe.ingredients )}>
-                </FormControl>
-              </FormGroup>
-              <FormGroup controlId="formControlTextarea">
-                <ControlLabel>Recipe Name</ControlLabel>
-                <FormControl
-                  type="textarea"
-                  value={newRecipe.ingredients}
-                  placeholder="Enter Ingredients (separate by commas)"
-                  onChange={(event)=>this.updateNewRecipe(newRecipe.recipeName, event.target.value.split(","))}>
-                </FormControl>
-              </FormGroup>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={(event)=>this.saveNewRecipe()}>Save New Recipe</Button>
-            </Modal.Footer>
-          </Modal.Header>
-        </Modal>
-
-
-
-
-            ))}
-          </Accordion>
+            <Modal show={this.state.showEdit} onHide={this.close}>
+              <Modal.Header closeButton>
+                <Modal.Title>Edit Recipe</Modal.Title>
+                <Modal.Body>
+                  <FormGroup controlId="formBasicText">
+                    <ControlLabel>Recipe Name</ControlLabel>
+                    <FormControl
+                      type="text"
+                      value={recipes[currentIndex].recipeName}
+                      placeholder="Enter Text"
+                      onChange={(event)=>this.updateRecipeName(event.target.value.split(","), currentIndex)}>
+                    </FormControl>
+                  </FormGroup>
+                  <FormGroup controlId="formControlTextarea">
+                    <ControlLabel>Ingredients</ControlLabel>
+                    <FormControl
+                      componentClass="textarea"
+                      value={recipes[currentIndex].ingredients}
+                      placeholder="Enter Ingredients (separate by commas)"
+                      onChange={(event)=>this.updateIngredients(event.target.value.split(","), currentIndex)}>
+                    </FormControl>
+                  </FormGroup>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button onClick={this.close}>Close</Button>
+                </Modal.Footer>
+              </Modal.Header>
+            </Modal>
+          </div>
         )}
         <Modal show={this.state.showAdd} onHide={this.close}>
           <Modal.Header closeButton>
@@ -125,7 +139,7 @@ class App extends Component {
                 </FormControl>
               </FormGroup>
               <FormGroup controlId="formControlTextarea">
-                <ControlLabel>Recipe Name</ControlLabel>
+                <ControlLabel>Ingredients</ControlLabel>
                 <FormControl
                   type="textarea"
                   value={newRecipe.ingredients}
@@ -139,7 +153,7 @@ class App extends Component {
             </Modal.Footer>
           </Modal.Header>
         </Modal>
-        <Button bsStyle="primary" onClick={(event)=>this.open('showAdd')}>Add Recipe</Button>
+        <Button bsStyle="primary" onClick={(event)=>this.open('showAdd', currentIndex)}>Add Recipe</Button>
       </div>
     );
   }
