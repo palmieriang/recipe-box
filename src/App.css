@@ -7,11 +7,13 @@
   height: 80px;
 }
 
-.App-header {
+.header {
   background-color: #222;
   height: 150px;
-  padding: 20px;
   color: white;
+  background-image: url("https://images.unsplash.com/photo-1493770348161-369560ae357d?w=2250&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D");
+  background-size: cover;
+  background-position: center;
 }
 
 .App-title {
