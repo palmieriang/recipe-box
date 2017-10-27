@@ -8,15 +8,16 @@ import Modal from 'react-bootstrap/lib/Modal'
 import FormGroup from 'react-bootstrap/lib/FormGroup'
 import ControlLabel from 'react-bootstrap/lib/ControlLabel'
 import FormControl from 'react-bootstrap/lib/FormControl'
+import uuidv4 from 'uuid/v4'
 
 class App extends Component {
 	constructor() {
 		super();
 		this.state = {
 			recipes: [
-				{recipeName: 'Carbonara', img: 'https://images.unsplash.com/photo-1499937089231-219080cdf888?auto=format&fit=crop&w=1600&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D', ingredients: ['3 large free-range egg yolks', '40 g Parmesan cheese', '150 g pancetta', '1 clove of garlic']},
-				{recipeName: 'Lemon & Lobster Risotto', img: 'https://images.unsplash.com/photo-1461009683693-342af2f2d6ce?auto=format&fit=crop&w=4031&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D', ingredients: ['2 lobster tails', '1 shallot finely chopped', '2 lemons', '4 cups of chicken or vegetable stock']},
-				{recipeName: 'Tagliatelle Mushroom', img: '', ingredients: ['10 chestnut mushrooms, finely sliced', '200g fresh spinach', '200ml crème fraîche']}
+				{id: uuidv4(), recipeName: 'Carbonara', img: 'https://images.unsplash.com/photo-1499937089231-219080cdf888?auto=format&fit=crop&w=1600&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D', ingredients: ['3 large free-range egg yolks', '40 g Parmesan cheese', '150 g pancetta', '1 clove of garlic']},
+				{id: uuidv4(), recipeName: 'Lemon & Lobster Risotto', img: 'https://images.unsplash.com/photo-1461009683693-342af2f2d6ce?auto=format&fit=crop&w=4031&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D', ingredients: ['2 lobster tails', '1 shallot finely chopped', '2 lemons', '4 cups of chicken or vegetable stock']},
+				{id: uuidv4(), recipeName: 'Tagliatelle Mushroom', img: '', ingredients: ['10 chestnut mushrooms, finely sliced', '200g fresh spinach', '200ml crème fraîche']}
 			],
 			showAdd: false,
 			showEdit: false,
@@ -43,6 +44,22 @@ class App extends Component {
 		this.setState({recipes})
 	}
 
+	updateRecipeImg(image, index) {
+		let recipes = this.state.recipes.slice()
+		recipes[index] = {recipeName: recipes[index].recipeName, img: image, ingredients: recipes[index].ingredients}
+		this.setState({recipes})
+	}
+
+	// updateRecipe(updatedRecipe) {
+	// 	const recipes = this.state.recipes.map(recipe => {
+	// 		if (recipe.id === updatedRecipe.id) {
+	// 			return updatedRecipe
+	// 		}
+	// 		return recipe
+	// 	})
+	// 	this.setState({recipes})
+	// }
+
 	deleteRecipe(index) {
 		let recipes = this.state.recipes.slice()
 		recipes.splice(index, 1)
@@ -55,7 +72,7 @@ class App extends Component {
 
 	saveNewRecipe() {
 		let recipes = this.state.recipes.slice()
-		recipes.push({recipeName: this.state.newRecipe.recipeName, ingredients: this.state.newRecipe.ingredients})
+		recipes.push({id: uuidv4(), recipeName: this.state.newRecipe.recipeName, ingredients: this.state.newRecipe.ingredients})
 		this.setState({
 			recipes: recipes,
 			newRecipe: {recipeName: '', ingredients: []}
@@ -131,6 +148,15 @@ class App extends Component {
 												value={recipes[currentIndex].ingredients}
 												placeholder="Enter Ingredients (separate by commas)"
 												onChange={(event)=>this.updateIngredients(event.target.value.split(","), currentIndex)}>
+											</FormControl>
+										</FormGroup>
+										<FormGroup controlId="formControlTextarea">
+											<ControlLabel>Images URL</ControlLabel>
+											<FormControl
+												componentClass="textarea"
+												value={recipes[currentIndex].img}
+												placeholder="Enter images URL"
+												onChange={(event)=>this.updateRecipeImg(event.target.value.split(","), currentIndex)}>
 											</FormControl>
 										</FormGroup>
 									</Modal.Body>
