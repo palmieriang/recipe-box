@@ -1,11 +1,14 @@
 .App {
-  text-align: center; }
+  text-align: center;
+}
 
 .App-title {
-  font-size: 1.5em; }
+  font-size: 1.5em;
+}
 
 .App-intro {
-  font-size: large; }
+  font-size: large;
+}
 
 .header {
   background-color: #222;
@@ -13,13 +16,14 @@
   color: white;
   background-image: url("https://images.unsplash.com/photo-1493770348161-369560ae357d?w=2250&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D");
   background-size: cover;
-  background-position: center; }
+  background-position: center;
+}
 
 .container {
-  margin-top: 20px; }
+  margin-top: 20px;
+}
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg); }
-  to {
-    transform: rotate(360deg); } }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
