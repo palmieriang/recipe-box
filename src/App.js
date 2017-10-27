@@ -66,13 +66,13 @@ class App extends Component {
 		this.setState({recipes})
 	}
 
-	updateNewRecipe(name, ingredients) {
-		 this.setState({newRecipe: {recipeName: name, ingredients: ingredients}})
+	updateNewRecipe(name, image, ingredients) {
+		 this.setState({newRecipe: {recipeName: name, img: image, ingredients: ingredients}})
 	}
 
 	saveNewRecipe() {
 		let recipes = this.state.recipes.slice()
-		recipes.push({id: uuidv4(), recipeName: this.state.newRecipe.recipeName, ingredients: this.state.newRecipe.ingredients})
+		recipes.push({id: uuidv4(), recipeName: this.state.newRecipe.recipeName, img: this.state.newRecipe.img, ingredients: this.state.newRecipe.ingredients})
 		this.setState({
 			recipes: recipes,
 			newRecipe: {recipeName: '', ingredients: []}
@@ -151,7 +151,7 @@ class App extends Component {
 											</FormControl>
 										</FormGroup>
 										<FormGroup controlId="formControlTextarea">
-											<ControlLabel>Images URL</ControlLabel>
+											<ControlLabel>Recipe Image URL</ControlLabel>
 											<FormControl
 												componentClass="textarea"
 												value={recipes[currentIndex].img}
@@ -177,7 +177,7 @@ class App extends Component {
 										type="text"
 										value={newRecipe.recipeName}
 										placeholder="Enter Recipe Name"
-										onChange={(event)=>this.updateNewRecipe(event.target.value, newRecipe.ingredients )}>
+										onChange={(event)=>this.updateNewRecipe(event.target.value, newRecipe.img, newRecipe.ingredients )}>
 									</FormControl>
 								</FormGroup>
 								<FormGroup controlId="formControlTextarea">
@@ -186,7 +186,16 @@ class App extends Component {
 										type="textarea"
 										value={newRecipe.ingredients}
 										placeholder="Enter Ingredients (separate by commas)"
-										onChange={(event)=>this.updateNewRecipe(newRecipe.recipeName, event.target.value.split(","))}>
+										onChange={(event)=>this.updateNewRecipe(newRecipe.recipeName, newRecipe.img, event.target.value.split(","))}>
+									</FormControl>
+								</FormGroup>
+								<FormGroup controlId="formControlTextarea">
+									<ControlLabel>Recipe Image URL</ControlLabel>
+									<FormControl
+										type="textarea"
+										value={newRecipe.img}
+										placeholder="Enter images URL"
+										onChange={(event)=>this.updateNewRecipe(newRecipe.recipeName, event.target.value.split(","), newRecipe.ingredients)}>
 									</FormControl>
 								</FormGroup>
 							</Modal.Body>
