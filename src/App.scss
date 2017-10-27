@@ -23,6 +23,33 @@
   margin-top: 20px;
 }
 
+.recipe-image {
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.recipe-image img {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -35%;
+}
+
+.recipe-box {
+  box-shadow: 1px 1px 5px -3px black;
+}
+
+.recipe-btn {
+  text-align: center;
+}
+
+.recipe-btn button {
+  width: 10%;
+  margin: 5px 10px;
+  float: none !important;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

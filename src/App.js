@@ -14,9 +14,9 @@ class App extends Component {
 		super();
 		this.state = {
 			recipes: [
-				{recipeName: 'Name1', ingredients: ['ingredients1', 'ingredients2', 'ingredients3']},
-				{recipeName: 'Name2', ingredients: ['ingredients1', 'ingredients2', 'ingredients3']},
-				{recipeName: 'Name3', ingredients: ['ingredients1', 'ingredients2', 'ingredients3']}
+				{recipeName: 'Carbonara', img: 'https://images.unsplash.com/photo-1499937089231-219080cdf888?auto=format&fit=crop&w=1600&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D', ingredients: ['3 large free-range egg yolks', '40 g Parmesan cheese', '150 g pancetta', '1 clove of garlic']},
+				{recipeName: 'Lemon & Lobster Risotto', img: 'https://images.unsplash.com/photo-1461009683693-342af2f2d6ce?auto=format&fit=crop&w=4031&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D', ingredients: ['2 lobster tails', '1 shallot finely chopped', '2 lemons', '4 cups of chicken or vegetable stock']},
+				{recipeName: 'Tagliatelle Mushroom', img: '', ingredients: ['10 chestnut mushrooms, finely sliced', '200g fresh spinach', '200ml crème fraîche']}
 			],
 			showAdd: false,
 			showEdit: false,
@@ -91,15 +91,22 @@ class App extends Component {
 						<div>
 							<Accordion>
 								{recipes.map((recipe, index) => (
-									<Panel header={recipe.recipeName} eventKey={index} key={index}>
+									<Panel className="recipe-box" header={
+										<div className="recipe-header">
+											{recipe.img && <div className="recipe-image">
+												<img src={recipe.img} alt={recipe.recipeName} width="100%"/>
+											</div>}
+											<p>{recipe.recipeName}</p>
+										</div>
+									} eventKey={index} key={index}>
 										<ol>
 											{recipe.ingredients.map((ingredient, index) => (
 												<li key={index}>{ingredient}</li>
 											))}
 										</ol>
-										<ButtonToolbar>
-											<Button bsStyle="danger" onClick={()=>this.deleteRecipe(index)}>Delete Recipe</Button>
+										<ButtonToolbar className="recipe-btn">
 											<Button bsStyle="default" onClick={()=>this.open("showEdit", index)}>Edit Recipe</Button>
+											<Button bsStyle="danger" onClick={()=>this.deleteRecipe(index)}>Delete Recipe</Button>
 										</ButtonToolbar>
 									</Panel>
 								))}
