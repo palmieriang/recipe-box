@@ -102,7 +102,11 @@ class App extends Component {
 		console.log(newRecipe)
 		return (
 			<div className="App">
-				<div className="header"></div>
+				<div className="header">
+					<div className="header-text">
+						<h1>Recipe Box</h1>
+					</div>
+				</div>
 				<div className="container">
 					{recipes.length > 0 && (
 						<div>
