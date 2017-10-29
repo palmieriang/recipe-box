@@ -117,7 +117,7 @@ class App extends Component {
 											{recipe.img && <div className="recipe-image">
 												<img src={recipe.img} alt={recipe.recipeName} width="100%"/>
 											</div>}
-											<p>{recipe.recipeName}</p>
+											<h2 className="recipe-name">{recipe.recipeName}</h2>
 										</div>
 									} eventKey={index} key={index}>
 										<ol>

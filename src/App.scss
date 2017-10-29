@@ -2,19 +2,11 @@
   text-align: center;
 }
 
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
 .header {
   background-color: #222;
   height: 150px;
   color: white;
-  background-image: url("https://images.unsplash.com/photo-1493770348161-369560ae357d?w=2250&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D");
+  background-image: url("https://images.unsplash.com/photo-1495195134817-aeb325a55b65?auto=format&fit=crop&w=1355&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D");
   background-size: cover;
   background-position: center;
   position: relative;
@@ -34,6 +26,11 @@
   margin-top: 20px;
 }
 
+.recipe-image:hover img,
+.recipe-image:focus img {
+  transform: scale(1.1);
+}
+
 .recipe-image {
   height: 200px;
   position: relative;
@@ -45,6 +42,20 @@
   left: 0;
   right: 0;
   top: -35%;
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  -o-transition: all .5s;
+  transition: all .5s;
+}
+
+.recipe-name {
+  font-size: 19px;
+  cursor: pointer;
+}
+
+.recipe-name:focus,
+.recipe-name:hover {
+  text-decoration: none;
 }
 
 .recipe-box {
