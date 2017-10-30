@@ -70,12 +70,13 @@ class App extends Component {
 		 this.setState({newRecipe: {recipeName: name, img: image, ingredients: ingredients}})
 	}
 
-	saveNewRecipe() {
-		let recipes = this.state.recipes.slice()
-		recipes.push({id: uuidv4(), recipeName: this.state.newRecipe.recipeName, img: this.state.newRecipe.img, ingredients: this.state.newRecipe.ingredients})
+	saveNewRecipe(newRecipe) {
 		this.setState({
-			recipes: recipes,
-			newRecipe: {recipeName: '', ingredients: []}
+			recipes: [
+				...this.state.recipes,
+				{recipeName: newRecipe.recipeName, img: newRecipe.img, ingredients: newRecipe.ingredients, id: uuidv4()}
+			],
+			newRecipe: {recipeName: '', img: '', ingredients: []}
 		})
 		this.close()
 	}
@@ -101,7 +102,7 @@ class App extends Component {
 		const {recipes, newRecipe, currentIndex} = this.state
 		console.log(newRecipe)
 		return (
-			<div className="App">
+			<div>
 				<div className="header">
 					<div className="header-text">
 						<h1>Recipe Box</h1>
@@ -119,7 +120,8 @@ class App extends Component {
 											</div>}
 											<h2 className="recipe-name">{recipe.recipeName}</h2>
 										</div>
-									} eventKey={index} key={index}>
+										} eventKey={index} key={index}>
+										<h3>Ingredients</h3>
 										<ol>
 											{recipe.ingredients.map((ingredient, index) => (
 												<li key={index}>{ingredient}</li>
@@ -204,7 +206,7 @@ class App extends Component {
 								</FormGroup>
 							</Modal.Body>
 							<Modal.Footer>
-								<Button onClick={()=>this.saveNewRecipe()}>Save New Recipe</Button>
+								<Button onClick={()=>this.saveNewRecipe(newRecipe)}>Save New Recipe</Button>
 							</Modal.Footer>
 						</Modal.Header>
 					</Modal>
