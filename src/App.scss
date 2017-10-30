@@ -1,7 +1,3 @@
-.App {
-  text-align: center;
-}
-
 .header {
   background-color: #222;
   height: 150px;
@@ -10,6 +6,7 @@
   background-size: cover;
   background-position: center;
   position: relative;
+  text-align: center;
 }
 
 .header .header-text {
@@ -23,7 +20,11 @@
 }
 
 .container {
-  margin-top: 20px;
+  margin: 20px auto;
+}
+
+.recipe-box {
+  box-shadow: 1px 1px 5px -3px black;
 }
 
 .recipe-image:hover img,
@@ -51,15 +52,19 @@
 .recipe-name {
   font-size: 19px;
   cursor: pointer;
+  text-align: center;
 }
 
-.recipe-name:focus,
-.recipe-name:hover {
-  text-decoration: none;
+.recipe-body {
+  display: flex;
 }
 
-.recipe-box {
-  box-shadow: 1px 1px 5px -3px black;
+.recipe-ingredients {
+  width: 30%;
+}
+
+.recipe-method {
+  width: 70%;
 }
 
 .recipe-btn {
@@ -70,6 +75,11 @@
   width: 20%;
   margin: 5px 10px;
   float: none !important;
+}
+
+ul {
+  list-style-type: circle;
+  padding-left: 20px;
 }
 
 @keyframes App-logo-spin {

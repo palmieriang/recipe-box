@@ -15,9 +15,9 @@ class App extends Component {
 		super();
 		this.state = {
 			recipes: [
-				{id: uuidv4(), recipeName: 'Carbonara', img: 'https://images.unsplash.com/photo-1499937089231-219080cdf888?auto=format&fit=crop&w=1600&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D', ingredients: ['3 large free-range egg yolks', '40 g Parmesan cheese', '150 g pancetta', '1 clove of garlic']},
-				{id: uuidv4(), recipeName: 'Lemon & Lobster Risotto', img: 'https://images.unsplash.com/photo-1461009683693-342af2f2d6ce?auto=format&fit=crop&w=4031&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D', ingredients: ['2 lobster tails', '1 shallot finely chopped', '2 lemons', '4 cups of chicken or vegetable stock']},
-				{id: uuidv4(), recipeName: 'Tagliatelle Mushroom', img: '', ingredients: ['10 chestnut mushrooms, finely sliced', '200g fresh spinach', '200ml crème fraîche']}
+				{id: uuidv4(), recipeName: 'Carbonara', img: 'https://images.unsplash.com/photo-1499937089231-219080cdf888?auto=format&fit=crop&w=1600&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D', ingredients: ['3 large free-range egg yolks', '40 g Parmesan cheese', '150 g pancetta', '1 clove of garlic'], method: 'test'},
+				{id: uuidv4(), recipeName: 'Lemon & Lobster Risotto', img: 'https://images.unsplash.com/photo-1461009683693-342af2f2d6ce?auto=format&fit=crop&w=4031&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D', ingredients: ['2 lobster tails', '1 shallot finely chopped', '2 lemons', '4 cups of chicken or vegetable stock'], method: 'test'},
+				{id: uuidv4(), recipeName: 'Tagliatelle Mushroom', img: '', ingredients: ['10 chestnut mushrooms, finely sliced', '200g fresh spinach', '200ml crème fraîche'], method: 'test'}
 			],
 			showAdd: false,
 			showEdit: false,
@@ -121,12 +121,20 @@ class App extends Component {
 											<h2 className="recipe-name">{recipe.recipeName}</h2>
 										</div>
 										} eventKey={index} key={index}>
-										<h3>Ingredients</h3>
-										<ol>
-											{recipe.ingredients.map((ingredient, index) => (
-												<li key={index}>{ingredient}</li>
-											))}
-										</ol>
+										<div className="recipe-body">
+											<div className="recipe-ingredients">
+												<h3>Ingredients</h3>
+												<ul>
+													{recipe.ingredients.map((ingredient, index) => (
+														<li key={index}>{ingredient}</li>
+													))}
+												</ul>
+											</div>
+											<div className="recipe-ingredients">
+												<h3>Method</h3>
+												<p>{recipe.method}</p>
+											</div>
+										</div>
 										<ButtonToolbar className="recipe-btn">
 											<Button bsStyle="default" onClick={()=>this.open("showEdit", index)}>Edit Recipe</Button>
 											<Button bsStyle="danger" onClick={()=>this.deleteRecipe(index)}>Delete Recipe</Button>
