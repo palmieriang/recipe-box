@@ -130,7 +130,7 @@ class App extends Component {
 													))}
 												</ul>
 											</div>
-											<div className="recipe-ingredients">
+											<div className="recipe-method">
 												<h3>Method</h3>
 												<p>{recipe.method}</p>
 											</div>
