@@ -22,7 +22,7 @@ class App extends Component {
 			showAdd: false,
 			showEdit: false,
 			currentIndex: 0,
-			newRecipe: {recipeName: '', ingredients: []}
+			newRecipe: {recipeName: '', img: '', ingredients: [], method: ''}
 		}
 	}
 
@@ -33,20 +33,26 @@ class App extends Component {
 
 	updateRecipeName(name, index) {
 		let recipes = this.state.recipes.slice()
-		recipes[index] = {recipeName: name, ingredients: recipes[index].ingredients}
+		recipes[index] = {recipeName: name, img: recipes[index].img, ingredients: recipes[index].ingredients, method: recipes[index].method}
 		localStorage.setItem('recipes', JSON.stringify(recipes))
 		this.setState({recipes})
 	}
 
 	updateIngredients(ingredients, index) {
 		let recipes = this.state.recipes.slice()
-		recipes[index] = {recipeName: recipes[index].recipeName, ingredients: ingredients}
+		recipes[index] = {recipeName: recipes[index].recipeName, img: recipes[index].img, ingredients: ingredients, method: recipes[index].method}
+		this.setState({recipes})
+	}
+
+	updateMethod(method, index) {
+		let recipes = this.state.recipes.slice()
+		recipes[index] = {recipeName: recipes[index].recipeName, img: recipes[index].img, ingredients: recipes[index].ingredients, method: method}
 		this.setState({recipes})
 	}
 
 	updateRecipeImg(image, index) {
 		let recipes = this.state.recipes.slice()
-		recipes[index] = {recipeName: recipes[index].recipeName, img: image, ingredients: recipes[index].ingredients}
+		recipes[index] = {recipeName: recipes[index].recipeName, img: image, ingredients: recipes[index].ingredients, method: recipes[index].method}
 		this.setState({recipes})
 	}
 
@@ -66,17 +72,17 @@ class App extends Component {
 		this.setState({recipes})
 	}
 
-	updateNewRecipe(name, image, ingredients) {
-		 this.setState({newRecipe: {recipeName: name, img: image, ingredients: ingredients}})
+	updateNewRecipe(name, image, ingredients, method) {
+		 this.setState({newRecipe: {recipeName: name, img: image, ingredients: ingredients, method: method}})
 	}
 
 	saveNewRecipe(newRecipe) {
 		this.setState({
 			recipes: [
 				...this.state.recipes,
-				{recipeName: newRecipe.recipeName, img: newRecipe.img, ingredients: newRecipe.ingredients, id: uuidv4()}
+				{recipeName: newRecipe.recipeName, img: newRecipe.img, ingredients: newRecipe.ingredients, method: newRecipe.method, id: uuidv4()}
 			],
-			newRecipe: {recipeName: '', img: '', ingredients: []}
+			newRecipe: {recipeName: '', img: '', ingredients: [], method: ''}
 		})
 		this.close()
 	}
@@ -152,7 +158,7 @@ class App extends Component {
 												type="text"
 												value={recipes[currentIndex].recipeName}
 												placeholder="Enter Text"
-												onChange={(event)=>this.updateRecipeName(event.target.value.split(","), currentIndex)}>
+												onChange={(event)=>this.updateRecipeName(event.target.value, currentIndex)}>
 											</FormControl>
 										</FormGroup>
 										<FormGroup controlId="formControlTextarea">
@@ -165,12 +171,21 @@ class App extends Component {
 											</FormControl>
 										</FormGroup>
 										<FormGroup controlId="formControlTextarea">
+											<ControlLabel>Method</ControlLabel>
+											<FormControl
+												componentClass="textarea"
+												value={recipes[currentIndex].method}
+												placeholder="Method"
+												onChange={(event)=>this.updateMethod(event.target.value, currentIndex)}>
+											</FormControl>
+										</FormGroup>
+										<FormGroup controlId="formControlTextarea">
 											<ControlLabel>Recipe Image URL</ControlLabel>
 											<FormControl
 												componentClass="textarea"
 												value={recipes[currentIndex].img}
 												placeholder="Enter images URL"
-												onChange={(event)=>this.updateRecipeImg(event.target.value.split(","), currentIndex)}>
+												onChange={(event)=>this.updateRecipeImg(event.target.value, currentIndex)}>
 											</FormControl>
 										</FormGroup>
 									</Modal.Body>
@@ -191,7 +206,7 @@ class App extends Component {
 										type="text"
 										value={newRecipe.recipeName}
 										placeholder="Enter Recipe Name"
-										onChange={(event)=>this.updateNewRecipe(event.target.value, newRecipe.img, newRecipe.ingredients )}>
+										onChange={(event)=>this.updateNewRecipe(event.target.value, newRecipe.img, newRecipe.ingredients, newRecipe.method)}>
 									</FormControl>
 								</FormGroup>
 								<FormGroup controlId="formControlTextarea">
@@ -200,7 +215,16 @@ class App extends Component {
 										type="textarea"
 										value={newRecipe.ingredients}
 										placeholder="Enter Ingredients (separate by commas)"
-										onChange={(event)=>this.updateNewRecipe(newRecipe.recipeName, newRecipe.img, event.target.value.split(","))}>
+										onChange={(event)=>this.updateNewRecipe(newRecipe.recipeName, newRecipe.img, event.target.value.split(","), newRecipe.method)}>
+									</FormControl>
+								</FormGroup>
+								<FormGroup controlId="formControlTextarea">
+									<ControlLabel>Method</ControlLabel>
+									<FormControl
+										componentClass="textarea"
+										value={newRecipe.method}
+										placeholder="Method"
+										onChange={(event)=>this.updateNewRecipe(newRecipe.recipeName, newRecipe.img, newRecipe.ingredients, event.target.value)}>
 									</FormControl>
 								</FormGroup>
 								<FormGroup controlId="formControlTextarea">
@@ -209,7 +233,7 @@ class App extends Component {
 										type="textarea"
 										value={newRecipe.img}
 										placeholder="Enter images URL"
-										onChange={(event)=>this.updateNewRecipe(newRecipe.recipeName, event.target.value.split(","), newRecipe.ingredients)}>
+										onChange={(event)=>this.updateNewRecipe(newRecipe.recipeName, event.target.value, newRecipe.ingredients, newRecipe.method)}>
 									</FormControl>
 								</FormGroup>
 							</Modal.Body>
