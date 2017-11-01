@@ -76,15 +76,28 @@ class App extends Component {
 		 this.setState({newRecipe: {recipeName: name, img: image, ingredients: ingredients, method: method}})
 	}
 
+	validate(recipe) {
+		let valid = true
+		if (recipe.recipeName.length < 2) {
+			valid = false
+		}
+		if (recipe.ingredients.length < 2) {
+			valid = false
+		}
+		return valid
+	}
+
 	saveNewRecipe(newRecipe) {
-		this.setState({
-			recipes: [
-				...this.state.recipes,
-				{recipeName: newRecipe.recipeName, img: newRecipe.img, ingredients: newRecipe.ingredients, method: newRecipe.method, id: uuidv4()}
-			],
-			newRecipe: {recipeName: '', img: '', ingredients: [], method: ''}
-		})
-		this.close()
+		if(this.validate(newRecipe)) {
+			this.setState({
+				recipes: [
+					...this.state.recipes,
+					{recipeName: newRecipe.recipeName, img: newRecipe.img, ingredients: newRecipe.ingredients, method: newRecipe.method, id: uuidv4()}
+				],
+				newRecipe: {recipeName: '', img: '', ingredients: [], method: ''}
+			})
+			this.close()
+		}
 	}
 
 	open = (state, index) => {
