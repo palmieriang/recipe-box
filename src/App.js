@@ -103,7 +103,7 @@ class App extends Component {
 					...this.state.recipes,
 					{recipeName: newRecipe.recipeName, img: newRecipe.img, ingredients: newRecipe.ingredients, method: newRecipe.method, id: uuidv4()}
 				],
-				newRecipe: {recipeName: '', img: '', ingredients: [], method: ''}
+				newRecipe: {recipeName: '', img: '', ingredients: [], method: '', error: ''}
 			})
 			this.close()
 		}
@@ -113,7 +113,8 @@ class App extends Component {
 		console.log(index)
 		this.setState({
 			[state]: true,
-			currentIndex: index
+			currentIndex: index,
+			error: ''
 		})
 	}
 
