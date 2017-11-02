@@ -15,9 +15,9 @@ class App extends Component {
 		super();
 		this.state = {
 			recipes: [
-				{id: uuidv4(), recipeName: 'Carbonara', img: 'https://images.unsplash.com/photo-1499937089231-219080cdf888?auto=format&fit=crop&w=1600&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D', ingredients: ['3 large free-range egg yolks', '40 g Parmesan cheese', '150 g pancetta', '1 clove of garlic'], method: 'test'},
-				{id: uuidv4(), recipeName: 'Lemon & Lobster Risotto', img: 'https://images.unsplash.com/photo-1461009683693-342af2f2d6ce?auto=format&fit=crop&w=4031&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D', ingredients: ['2 lobster tails', '1 shallot finely chopped', '2 lemons', '4 cups of chicken or vegetable stock'], method: 'test'},
-				{id: uuidv4(), recipeName: 'Tagliatelle Mushroom', img: '', ingredients: ['10 chestnut mushrooms, finely sliced', '200g fresh spinach', '200ml crème fraîche'], method: 'test'}
+				{id: uuidv4(), recipeName: 'Carbonara', img: 'https://images.unsplash.com/photo-1499937089231-219080cdf888?auto=format&fit=crop&w=1600&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D', ingredients: ['3 large free-range egg yolks', '40 g Parmesan cheese', '150 g pancetta', '1 clove of garlic'], method: 'test', error: ''},
+				{id: uuidv4(), recipeName: 'Lemon & Lobster Risotto', img: 'https://images.unsplash.com/photo-1461009683693-342af2f2d6ce?auto=format&fit=crop&w=4031&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D', ingredients: ['2 lobster tails', '1 shallot finely chopped', '2 lemons', '4 cups of chicken or vegetable stock'], method: 'test', error: ''},
+				{id: uuidv4(), recipeName: 'Tagliatelle Mushroom', img: '', ingredients: ['10 chestnut mushrooms, finely sliced', '200g fresh spinach', '200ml crème fraîche'], method: 'test', error: ''}
 			],
 			showAdd: false,
 			showEdit: false,
@@ -78,11 +78,20 @@ class App extends Component {
 
 	validate(recipe) {
 		let valid = true
+		this.setState({
+			error: ''
+		})
+		if (recipe.ingredients.length < 1) {
+			valid = false
+			this.setState({
+				error: 'Please enter ingredients'
+			})
+		}
 		if (recipe.recipeName.length < 2) {
 			valid = false
-		}
-		if (recipe.ingredients.length < 2) {
-			valid = false
+			this.setState({
+				error: 'Please enter a valid name'
+			})
 		}
 		return valid
 	}
@@ -249,6 +258,7 @@ class App extends Component {
 										onChange={(event)=>this.updateNewRecipe(newRecipe.recipeName, event.target.value, newRecipe.ingredients, newRecipe.method)}>
 									</FormControl>
 								</FormGroup>
+								{this.state.error && <p className="error">{this.state.error}</p>}
 							</Modal.Body>
 							<Modal.Footer>
 								<Button onClick={()=>this.saveNewRecipe(newRecipe)}>Save New Recipe</Button>
