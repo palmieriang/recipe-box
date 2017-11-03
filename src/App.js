@@ -27,8 +27,17 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		let recipes = JSON.parse(localStorage.getItem('recipes')) || this.state.recipes
-		this.setState({recipes})
+		// let recipes = JSON.parse(localStorage.getItem('recipes')) || this.state.recipes
+		// this.setState({recipes})
+		this.callApi()
+	}
+
+	callApi() {
+		fetch('./recipes.json')
+			.then(response => response.json())
+			.then(json => {
+				this.setState({ recipes: json });
+			})
 	}
 
 	updateRecipeName(name, index) {
