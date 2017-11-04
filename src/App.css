@@ -48,21 +48,25 @@
   text-align: center; }
 
 .recipe-body {
-  display: flex; }
+  display: flex;
+  flex-wrap: wrap; }
 
 .recipe-ingredients {
-  width: 30%; }
+  flex-grow: 1; }
 
 .recipe-method {
-  width: 70%; }
+  flex-grow: 5; }
 
 .recipe-btn {
   text-align: center; }
 
 .recipe-btn button {
-  width: 20%;
+  padding: 10px;
   margin: 5px 10px;
   float: none !important; }
+
+.error {
+  color: red; }
 
 ul {
   list-style-type: circle;
