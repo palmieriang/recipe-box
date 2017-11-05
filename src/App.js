@@ -60,51 +60,6 @@ class App extends Component {
       })
   }
 
-  updateRecipeName (name, index) {
-    let recipes = this.state.recipes.slice()
-    recipes[index] = {
-      recipeName: name,
-      img: recipes[index].img,
-      ingredients: recipes[index].ingredients,
-      method: recipes[index].method
-    }
-    localStorage.setItem('recipes', JSON.stringify(recipes))
-    this.setState({recipes})
-  }
-
-  updateIngredients (ingredients, index) {
-    let recipes = this.state.recipes.slice()
-    recipes[index] = {
-      recipeName: recipes[index].recipeName,
-      img: recipes[index].img,
-      ingredients: ingredients,
-      method: recipes[index].method
-    }
-    this.setState({recipes})
-  }
-
-  updateMethod (method, index) {
-    let recipes = this.state.recipes.slice()
-    recipes[index] = {
-      recipeName: recipes[index].recipeName,
-      img: recipes[index].img,
-      ingredients: recipes[index].ingredients,
-      method: method
-    }
-    this.setState({recipes})
-  }
-
-  updateRecipeImg (image, index) {
-    const recipes = this.state.recipes.slice()
-    recipes[index] = {
-      recipeName: recipes[index].recipeName,
-      img: image,
-      ingredients: recipes[index].ingredients,
-      method: recipes[index].method
-    }
-    this.setState({recipes})
-  }
-
   onChange = event => {
     const {recipes, currentRecipeId} = this.state
     const newRecipes = recipes.map(recipe => {
@@ -120,7 +75,7 @@ class App extends Component {
   }
 
   deleteRecipe (index) {
-    let recipes = this.state.recipes.slice()
+    const recipes = this.state.recipes.slice()
     recipes.splice(index, 1)
     this.setState({recipes})
   }
@@ -267,18 +222,20 @@ class App extends Component {
                       <ControlLabel>Method</ControlLabel>
                       <FormControl
                         componentClass="textarea"
+                        name="method"
                         value={currentRecipe.method}
                         placeholder="Method"
-                        onChange={(event) => this.updateMethod(event.target.value)}>
+                        onChange={this.onChange}>
                       </FormControl>
                     </FormGroup>
                     <FormGroup controlId="formControlTextarea">
                       <ControlLabel>Recipe Image URL</ControlLabel>
                       <FormControl
                         componentClass="textarea"
+                        name="img"
                         value={currentRecipe.img}
                         placeholder="Enter images URL"
-                        onChange={(event) => this.updateRecipeImg(event.target.value)}>
+                        onChange={this.onChange}>
                       </FormControl>
                     </FormGroup>
                   </Modal.Body>
