@@ -117,7 +117,7 @@ class App extends Component {
             id: uuidv4()
           }
         ],
-        newRecipe: {recipeName: '', img: '', ingredients: [], method: '', error: ''}
+        newRecipe: {recipeName: '', img: '', ingredients: '', method: '', error: ''}
       })
       this.close()
     }
@@ -133,7 +133,7 @@ class App extends Component {
         currentRecipeId: id,
         recipes: [
           ...recipes,
-          {id, recipeName: '', img: '', ingredients: [], method: ''}
+          {id, recipeName: '', img: '', ingredients: '', method: ''}
         ]
       })
     }
@@ -247,7 +247,7 @@ class App extends Component {
               }
             </div>
           )}
-          <Modal show={this.state.showAdd} onHide={this.close}>
+          {!currentRecipe && <Modal show={modalVisible} onHide={this.close}>
             <Modal.Header closeButton>
               <Modal.Title>Add Recipe</Modal.Title>
               <Modal.Body>
@@ -294,6 +294,7 @@ class App extends Component {
               </Modal.Footer>
             </Modal.Header>
           </Modal>
+          }
           <Button bsStyle="primary" onClick={() => this.open(uuidv4())}>Add Recipe</Button>
         </div>
       </div>
