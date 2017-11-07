@@ -149,7 +149,7 @@ class App extends Component {
   }
 
   render () {
-    const {recipes, newRecipe, currentRecipeId, modalVisible} = this.state
+    const {recipes, currentRecipeId, modalVisible} = this.state
     const currentRecipe = recipes.find(recipe => recipe.id === currentRecipeId)
 
     return (
@@ -247,54 +247,6 @@ class App extends Component {
               }
             </div>
           )}
-          {!currentRecipe && <Modal show={modalVisible} onHide={this.close}>
-            <Modal.Header closeButton>
-              <Modal.Title>Add Recipe</Modal.Title>
-              <Modal.Body>
-                <FormGroup controlId="formBasicText">
-                  <ControlLabel>Recipe Name</ControlLabel>
-                  <FormControl
-                    type="text"
-                    value={newRecipe.recipeName}
-                    placeholder="Enter Recipe Name"
-                    onChange={(event) => this.updateNewRecipe(event.target.value, newRecipe.img, newRecipe.ingredients, newRecipe.method)}>
-                  </FormControl>
-                </FormGroup>
-                <FormGroup controlId="formControlTextarea">
-                  <ControlLabel>Ingredients</ControlLabel>
-                  <FormControl
-                    type="textarea"
-                    value={newRecipe.ingredients}
-                    placeholder="Enter Ingredients (separate by commas)"
-                    onChange={(event) => this.updateNewRecipe(newRecipe.recipeName, newRecipe.img, event.target.value.split(","), newRecipe.method)}>
-                  </FormControl>
-                </FormGroup>
-                <FormGroup controlId="formControlTextarea">
-                  <ControlLabel>Method</ControlLabel>
-                  <FormControl
-                    componentClass="textarea"
-                    value={newRecipe.method}
-                    placeholder="Method"
-                    onChange={(event) => this.updateNewRecipe(newRecipe.recipeName, newRecipe.img, newRecipe.ingredients, event.target.value)}>
-                  </FormControl>
-                </FormGroup>
-                <FormGroup controlId="formControlTextarea">
-                  <ControlLabel>Recipe Image URL</ControlLabel>
-                  <FormControl
-                    type="textarea"
-                    value={newRecipe.img}
-                    placeholder="Enter images URL"
-                    onChange={(event) => this.updateNewRecipe(newRecipe.recipeName, event.target.value, newRecipe.ingredients, newRecipe.method)}>
-                  </FormControl>
-                </FormGroup>
-                {this.state.error && <p className="error">{this.state.error}</p>}
-              </Modal.Body>
-              <Modal.Footer>
-                <Button onClick={() => this.saveNewRecipe(newRecipe)}>Save New Recipe</Button>
-              </Modal.Footer>
-            </Modal.Header>
-          </Modal>
-          }
           <Button bsStyle="primary" onClick={() => this.open(uuidv4())}>Add Recipe</Button>
         </div>
       </div>
