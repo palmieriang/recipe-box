@@ -42,7 +42,8 @@ class App extends Component {
       ],
       currentRecipeId: null,
       modalVisible: false,
-      newRecipe: {recipeName: '', img: '', ingredients: [], method: ''}
+      newRecipe: {recipeName: '', img: '', ingredients: [], method: ''},
+      currentRecipe: {recipeName: '', img: '', ingredients: [], method: ''}
     }
   }
 
@@ -61,17 +62,14 @@ class App extends Component {
   }
 
   onChange = event => {
-    const {recipes, currentRecipeId} = this.state
-    const newRecipes = recipes.map(recipe => {
-      if (recipe.id === currentRecipeId) {
-        return {
-          ...recipe,
-          [event.target.name]: event.target.value
-        }
+    const {recipes, currentRecipeId, currentRecipe} = this.state
+
+    this.setState({
+      currentRecipe: {
+        ...currentRecipe,
+        [event.target.name]: event.target.value
       }
-      return recipe
     })
-    this.setState({recipes: newRecipes})
   }
 
   deleteRecipe (index) {
@@ -141,6 +139,7 @@ class App extends Component {
     this.setState({
       modalVisible: true,
       currentRecipeId: id,
+      currentRecipe: existingRecipe
     })
   }
 
@@ -149,8 +148,7 @@ class App extends Component {
   }
 
   render () {
-    const {recipes, currentRecipeId, modalVisible} = this.state
-    const currentRecipe = recipes.find(recipe => recipe.id === currentRecipeId)
+    const {recipes, currentRecipeId, modalVisible, currentRecipe} = this.state
 
     return (
       <div>
@@ -241,6 +239,7 @@ class App extends Component {
                   </Modal.Body>
                   <Modal.Footer>
                     <Button onClick={this.close}>Close</Button>
+                    <Button onClick={this.close}>Save Recipe</Button>
                   </Modal.Footer>
                 </Modal.Header>
               </Modal>
