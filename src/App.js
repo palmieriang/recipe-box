@@ -42,8 +42,8 @@ class App extends Component {
       ],
       currentRecipeId: null,
       modalVisible: false,
-      newRecipe: {recipeName: '', img: '', ingredients: [], method: ''},
-      currentRecipe: {recipeName: '', img: '', ingredients: [], method: ''}
+      // newRecipe: {recipeName: '', img: '', ingredients: [], method: ''},
+      currentRecipe: {recipeName: '', img: '', ingredients: '', method: ''}
     }
   }
 
@@ -78,9 +78,9 @@ class App extends Component {
     this.setState({recipes})
   }
 
-  updateNewRecipe (name, image, ingredients, method) {
-    this.setState({newRecipe: {recipeName: name, img: image, ingredients: ingredients, method: method}})
-  }
+  // updateNewRecipe (name, image, ingredients, method) {
+  //   this.setState({newRecipe: {recipeName: name, img: image, ingredients: ingredients, method: method}})
+  // }
 
   validate (recipe) {
     let valid = true
@@ -102,23 +102,33 @@ class App extends Component {
     return valid
   }
 
-  saveNewRecipe (newRecipe) {
-    if (this.validate(newRecipe)) {
+  onSubmit = id => {
+    const {currentRecipe, recipes} = this.state
+    const existingRecipe = recipes.find(recipe => recipe.id === id)
+
+    if (existingRecipe) {
+      debugger
+      const recipes = this.state.recipes.map(recipe => {
+        if(recipe.id === currentRecipe.id) {
+          return currentRecipe
+        }
+        return recipe
+      })
+      this.setState({recipes})
+    } else {
+      debugger
       this.setState({
         recipes: [
-          ...this.state.recipes,
-          {
-            recipeName: newRecipe.recipeName,
-            img: newRecipe.img,
-            ingredients: newRecipe.ingredients,
-            method: newRecipe.method,
-            id: uuidv4()
-          }
-        ],
-        newRecipe: {recipeName: '', img: '', ingredients: '', method: '', error: ''}
+          ...recipes,
+          currentRecipe
+        ]
       })
-      this.close()
     }
+    debugger
+    this.setState({
+      currentRecipe: {recipeName: '', img: '', ingredients: '', method: ''}
+    })
+    this.close()
   }
 
   open = id => {
@@ -129,10 +139,7 @@ class App extends Component {
       return this.setState({
         modalVisible: true,
         currentRecipeId: id,
-        recipes: [
-          ...recipes,
-          {id, recipeName: '', img: '', ingredients: '', method: ''}
-        ]
+        currentRecipe: {recipeName: '', img: '', ingredients: '', method: ''}
       })
     }
 
@@ -239,7 +246,7 @@ class App extends Component {
                   </Modal.Body>
                   <Modal.Footer>
                     <Button onClick={this.close}>Close</Button>
-                    <Button onClick={this.close}>Save Recipe</Button>
+                    <Button onClick={() => this.onSubmit(currentRecipeId)}>Save Recipe</Button>
                   </Modal.Footer>
                 </Modal.Header>
               </Modal>
