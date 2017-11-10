@@ -191,7 +191,7 @@ class App extends Component {
                       </div>
                     </div>
                     <ButtonToolbar className="recipe-btn">
-                      <Button bsStyle="default" onClick={() => this.open(recipe.id)}>Edit Recipe</Button>
+                      <Button bsStyle="info" onClick={() => this.open(recipe.id)}>Edit Recipe</Button>
                       <Button bsStyle="danger" onClick={() => this.deleteRecipe(index)}>Delete Recipe</Button>
                     </ButtonToolbar>
                   </Panel>
