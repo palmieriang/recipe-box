@@ -20,30 +20,27 @@ class App extends Component {
           recipeName: 'Carbonara',
           img: 'https://images.unsplash.com/photo-1499937089231-219080cdf888?auto=format&fit=crop&w=1600&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D',
           ingredients: '3 large free-range egg yolks, 40 g Parmesan cheese, 150 g pancetta, 1 clove of garlic',
-          method: 'test',
-          error: ''
+          method: 'test'
         },
         {
           id: uuidv4(),
           recipeName: 'Lemon & Lobster Risotto',
           img: 'https://images.unsplash.com/photo-1461009683693-342af2f2d6ce?auto=format&fit=crop&w=4031&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D',
           ingredients: '2 lobster tails, 1 shallot finely chopped, 2 lemons, 4 cups of chicken or vegetable stock',
-          method: 'test',
-          error: ''
+          method: 'test'
         },
         {
           id: uuidv4(),
           recipeName: 'Tagliatelle Mushroom',
           img: '',
           ingredients: '10 chestnut mushrooms, finely sliced, 200g fresh spinach, 200ml crème fraîche',
-          method: 'test',
-          error: ''
+          method: 'test'
         }
       ],
+      currentRecipe: {recipeName: '', img: '', ingredients: '', method: ''},
       currentRecipeId: null,
       modalVisible: false,
-      // newRecipe: {recipeName: '', img: '', ingredients: [], method: ''},
-      currentRecipe: {recipeName: '', img: '', ingredients: '', method: ''}
+      error: ''
     }
   }
 
@@ -62,7 +59,7 @@ class App extends Component {
   }
 
   onChange = event => {
-    const {recipes, currentRecipeId, currentRecipe} = this.state
+    const {currentRecipe} = this.state
 
     this.setState({
       currentRecipe: {
@@ -77,10 +74,6 @@ class App extends Component {
     recipes.splice(index, 1)
     this.setState({recipes})
   }
-
-  // updateNewRecipe (name, image, ingredients, method) {
-  //   this.setState({newRecipe: {recipeName: name, img: image, ingredients: ingredients, method: method}})
-  // }
 
   validate (recipe) {
     let valid = true
@@ -107,7 +100,6 @@ class App extends Component {
     const existingRecipe = recipes.find(recipe => recipe.id === id)
 
     if (existingRecipe) {
-      debugger
       const recipes = this.state.recipes.map(recipe => {
         if(recipe.id === currentRecipe.id) {
           return currentRecipe
@@ -115,20 +107,18 @@ class App extends Component {
         return recipe
       })
       this.setState({recipes})
+      this.resetModal()
     } else {
-      debugger
-      this.setState({
-        recipes: [
-          ...recipes,
-          currentRecipe
-        ]
-      })
+      if(this.validate(currentRecipe)) {
+        this.setState({
+          recipes: [
+            ...recipes,
+            currentRecipe
+          ]
+        })
+      this.resetModal()
+      }
     }
-    debugger
-    this.setState({
-      currentRecipe: {recipeName: '', img: '', ingredients: '', method: ''}
-    })
-    this.close()
   }
 
   open = id => {
@@ -139,14 +129,16 @@ class App extends Component {
       return this.setState({
         modalVisible: true,
         currentRecipeId: id,
-        currentRecipe: {recipeName: '', img: '', ingredients: '', method: ''}
+        currentRecipe: {recipeName: '', img: '', ingredients: '', method: ''},
+        error: ''
       })
     }
 
     this.setState({
       modalVisible: true,
       currentRecipeId: id,
-      currentRecipe: existingRecipe
+      currentRecipe: existingRecipe,
+      error: ''
     })
   }
 
@@ -154,8 +146,15 @@ class App extends Component {
     this.setState({modalVisible: false, currentRecipeId: null})
   }
 
+  resetModal = () => {
+    this.setState({
+      currentRecipe: {recipeName: '', img: '', ingredients: '', method: ''}
+    })
+    this.close()
+  }
+
   render () {
-    const {recipes, currentRecipeId, modalVisible, currentRecipe} = this.state
+    const {recipes, currentRecipeId, modalVisible, currentRecipe, error} = this.state
 
     return (
       <div>
@@ -243,6 +242,7 @@ class App extends Component {
                         onChange={this.onChange}>
                       </FormControl>
                     </FormGroup>
+                    {error && <p className="error">{error}</p>}
                   </Modal.Body>
                   <Modal.Footer>
                     <Button onClick={this.close}>Close</Button>
