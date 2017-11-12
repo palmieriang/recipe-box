@@ -9,6 +9,8 @@ import FormGroup from 'react-bootstrap/lib/FormGroup'
 import ControlLabel from 'react-bootstrap/lib/ControlLabel'
 import FormControl from 'react-bootstrap/lib/FormControl'
 import uuidv4 from 'uuid/v4'
+import heartempty from './images/heart-empty.png'
+import heartfull from './images/heart-full.png'
 
 class App extends Component {
   constructor () {
@@ -20,21 +22,24 @@ class App extends Component {
           recipeName: 'Carbonara',
           img: 'https://images.unsplash.com/photo-1499937089231-219080cdf888?auto=format&fit=crop&w=1600&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D',
           ingredients: '3 large free-range egg yolks, 40 g Parmesan cheese, 150 g pancetta, 1 clove of garlic',
-          method: 'test'
+          method: 'test',
+          favourite: false
         },
         {
           id: uuidv4(),
           recipeName: 'Lemon & Lobster Risotto',
           img: 'https://images.unsplash.com/photo-1461009683693-342af2f2d6ce?auto=format&fit=crop&w=4031&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D',
           ingredients: '2 lobster tails, 1 shallot finely chopped, 2 lemons, 4 cups of chicken or vegetable stock',
-          method: 'test'
+          method: 'test',
+          favourite: false
         },
         {
           id: uuidv4(),
           recipeName: 'Tagliatelle Mushroom',
           img: '',
           ingredients: '10 chestnut mushrooms, finely sliced, 200g fresh spinach, 200ml crème fraîche',
-          method: 'test'
+          method: 'test',
+          favourite: false
         }
       ],
       currentRecipe: {recipeName: '', img: '', ingredients: '', method: ''},
@@ -153,6 +158,12 @@ class App extends Component {
     this.close()
   }
 
+  changeFavourite = index => {
+    let recipes = this.state.recipes.slice()
+    recipes[index].favourite = !recipes[index].favourite
+    this.setState({recipes})
+  }
+
   render () {
     const {recipes, currentRecipeId, modalVisible, currentRecipe, error} = this.state
 
@@ -174,6 +185,7 @@ class App extends Component {
                         <img src={recipe.img} alt={recipe.recipeName} width="100%"/>
                       </div>}
                       <h2 className="recipe-name">{recipe.recipeName}</h2>
+                      <img src={recipe.favourite ? heartfull : heartempty} alt='heart' onClick={() => this.changeFavourite(index)} />
                     </div>
                   } eventKey={index} key={index}>
                     <div className="recipe-body">
