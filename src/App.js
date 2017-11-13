@@ -9,8 +9,8 @@ import FormGroup from 'react-bootstrap/lib/FormGroup'
 import ControlLabel from 'react-bootstrap/lib/ControlLabel'
 import FormControl from 'react-bootstrap/lib/FormControl'
 import uuidv4 from 'uuid/v4'
-import heartempty from './images/heart-empty.png'
-import heartfull from './images/heart-full.png'
+import heartempty from './images/heart-empty2.png'
+import heartfull from './images/heart-full2.png'
 
 class App extends Component {
   constructor () {
@@ -184,8 +184,8 @@ class App extends Component {
                       {recipe.img && <div className="recipe-image">
                         <img src={recipe.img} alt={recipe.recipeName} width="100%"/>
                       </div>}
-                      <h2 className="recipe-name">{recipe.recipeName}</h2>
-                      <img src={recipe.favourite ? heartfull : heartempty} alt='heart' onClick={() => this.changeFavourite(index)} />
+                      <h2 className="recipe-name">{recipe.recipeName} <img className="icon-favourite" src={recipe.favourite ? heartfull : heartempty} alt='heart' onClick={() => this.changeFavourite(index)} />
+</h2>
                     </div>
                   } eventKey={index} key={index}>
                     <div className="recipe-body">

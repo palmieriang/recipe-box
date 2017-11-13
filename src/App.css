@@ -80,6 +80,10 @@
   background-color: #fff;
   color: #46b8da; }
 
+.icon-favourite {
+  float: right;
+  margin-right: 5px; }
+
 ul {
   list-style-type: circle;
   padding-left: 20px; }
