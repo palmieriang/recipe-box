@@ -11,38 +11,14 @@ import FormControl from 'react-bootstrap/lib/FormControl'
 import uuidv4 from 'uuid/v4'
 import heartempty from './images/heart-empty2.png'
 import heartfull from './images/heart-full2.png'
+import recipes from './recipes.json'
 
 class App extends Component {
   constructor () {
     super();
     this.state = {
-      recipes: [
-        {
-          id: uuidv4(),
-          recipeName: 'Carbonara',
-          img: 'https://images.unsplash.com/photo-1499937089231-219080cdf888?auto=format&fit=crop&w=1600&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D',
-          ingredients: '3 large free-range egg yolks, 40 g Parmesan cheese, 150 g pancetta, 1 clove of garlic',
-          method: 'test',
-          favourite: false
-        },
-        {
-          id: uuidv4(),
-          recipeName: 'Lemon & Lobster Risotto',
-          img: 'https://images.unsplash.com/photo-1461009683693-342af2f2d6ce?auto=format&fit=crop&w=4031&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D',
-          ingredients: '2 lobster tails, 1 shallot finely chopped, 2 lemons, 4 cups of chicken or vegetable stock',
-          method: 'test',
-          favourite: false
-        },
-        {
-          id: uuidv4(),
-          recipeName: 'Tagliatelle Mushroom',
-          img: '',
-          ingredients: '10 chestnut mushrooms, finely sliced, 200g fresh spinach, 200ml crème fraîche',
-          method: 'test',
-          favourite: false
-        }
-      ],
-      currentRecipe: {recipeName: '', img: '', ingredients: '', method: ''},
+      recipes: recipes,
+      currentRecipe: {recipeName: '', img: '', ingredients: '', method: '', favourite: false},
       currentRecipeId: null,
       modalVisible: false,
       error: ''
@@ -134,7 +110,7 @@ class App extends Component {
       return this.setState({
         modalVisible: true,
         currentRecipeId: id,
-        currentRecipe: {recipeName: '', img: '', ingredients: '', method: ''},
+        currentRecipe: {recipeName: '', img: '', ingredients: '', method: '', favourite: false},
         error: ''
       })
     }
@@ -163,6 +139,33 @@ class App extends Component {
     recipes[index].favourite = !recipes[index].favourite
     this.setState({recipes})
   }
+
+  // [
+  //       {
+  //         id: uuidv4(),
+  //         recipeName: 'Carbonara',
+  //         img: 'https://images.unsplash.com/photo-1499937089231-219080cdf888?auto=format&fit=crop&w=1600&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D',
+  //         ingredients: '3 large free-range egg yolks, 40 g Parmesan cheese, 150 g pancetta, 1 clove of garlic',
+  //         method: 'Put the egg yolks into a bowl, finely grate in the Parmesan, season with pepper, then mix well with a fork. Cook the spaghetti in a large pan of boiling salted water until al dente. Peel the garlic, then crush with the palm of your hand, add it to the pan and leave it to flavour the fat for 1 minute. Stir in the pancetta, then cook for 4 minutes, or until it starts to crisp up. Pick out and discard the garlic from the pan, then, reserving some of the cooking water, drain and add the spaghetti. Toss well over the heat so it really soaks up all that lovely flavour, then remove the pan from the heat. Add a splash of the cooking water and toss well, season with pepper, then pour in the egg mixture – the pan will help to cook the egg gently, rather than scrambling it. Toss well, adding more cooking water until it’s lovely and glossy.',
+  //         favourite: false
+  //       },
+  //       {
+  //         id: uuidv4(),
+  //         recipeName: 'Lemon & Lobster Risotto',
+  //         img: 'https://images.unsplash.com/photo-1461009683693-342af2f2d6ce?auto=format&fit=crop&w=4031&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D',
+  //         ingredients: '2 lobster tails, 1 shallot finely chopped, 2 lemons, 4 cups of chicken or vegetable stock',
+  //         method: 'test',
+  //         favourite: false
+  //       },
+  //       {
+  //         id: uuidv4(),
+  //         recipeName: 'Tagliatelle Mushroom',
+  //         img: '',
+  //         ingredients: '10 chestnut mushrooms, finely sliced, 200g fresh spinach, 200ml crème fraîche',
+  //         method: 'test',
+  //         favourite: false
+  //       }
+  // ]
 
   render () {
     const {recipes, currentRecipeId, modalVisible, currentRecipe, error} = this.state
