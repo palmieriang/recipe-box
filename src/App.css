@@ -50,16 +50,18 @@
   flex-wrap: wrap; }
   .recipe-body .recipe-ingredients {
     flex-grow: 1; }
+    .recipe-body .recipe-ingredients ul {
+      list-style-type: circle;
+      padding-left: 20px; }
   .recipe-body .recipe-method {
     flex-grow: 5; }
 
 .recipe-btn {
   text-align: center; }
-
-.recipe-btn button {
-  padding: 10px;
-  margin: 5px 10px;
-  float: none !important; }
+  .recipe-btn button {
+    padding: 10px;
+    margin: 5px 10px;
+    float: none !important; }
 
 .error {
   color: red; }
@@ -80,16 +82,6 @@
   float: right;
   margin-right: 5px; }
 
-ul {
-  list-style-type: circle;
-  padding-left: 20px; }
-
 textarea {
   resize: vertical;
   max-height: 250px; }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg); }
-  to {
-    transform: rotate(360deg); } }

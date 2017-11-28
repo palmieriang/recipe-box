@@ -61,6 +61,11 @@
 
   .recipe-ingredients {
     flex-grow: 1;
+
+    ul {
+      list-style-type: circle;
+      padding-left: 20px;
+    }
   }
 
   .recipe-method {
@@ -70,12 +75,12 @@
 
 .recipe-btn {
   text-align: center;
-}
 
-.recipe-btn button {
-  padding: 10px;
-  margin: 5px 10px;
-  float: none !important;
+  button {
+    padding: 10px;
+    margin: 5px 10px;
+    float: none !important;
+  }
 }
 
 .error {
@@ -102,17 +107,7 @@
   margin-right: 5px;
 }
 
-ul {
-  list-style-type: circle;
-  padding-left: 20px;
-}
-
 textarea {
   resize: vertical;
   max-height: 250px;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
