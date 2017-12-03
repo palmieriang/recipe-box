@@ -176,7 +176,7 @@ class App extends Component {
       return this.setState({
         modalVisible: true,
         currentRecipeId: id,
-        currentRecipe: {recipeName: '', img: '', ingredients: '', method: '', favourite: false},
+        currentRecipe: {id: id, recipeName: '', img: '', ingredients: '', method: '', favourite: false},
         error: ''
       })
     }
