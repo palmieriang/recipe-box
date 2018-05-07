@@ -212,12 +212,12 @@ class App extends Component {
 
     return (
       <div>
-        <div className="header">
+        <header className="header">
           <div className="header-text">
             <h1>Recipe Box</h1>
           </div>
-        </div>
-        <div className="container">
+        </header>
+        <main className="container">
           {recipes.length > 0 && (
             <div>
               <RecipesList
@@ -282,7 +282,7 @@ class App extends Component {
             </div>
           )}
           <Button bsStyle="primary" onClick={() => this.open(uuidv4())}>Add Recipe</Button>
-        </div>
+        </main>
       </div>
     )
   }
