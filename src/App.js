@@ -9,6 +9,8 @@ import FormGroup from 'react-bootstrap/lib/FormGroup'
 import ControlLabel from 'react-bootstrap/lib/ControlLabel'
 import FormControl from 'react-bootstrap/lib/FormControl'
 import uuidv4 from 'uuid/v4'
+import axios from 'axios'
+
 import heartempty from './images/heart-empty2.png'
 import heartfull from './images/heart-full2.png'
 
@@ -56,32 +58,7 @@ class App extends Component {
   constructor () {
     super();
     this.state = {
-      recipes: [
-        {
-          id: uuidv4(),
-          recipeName: 'Carbonara',
-          img: 'https://images.unsplash.com/photo-1499937089231-219080cdf888?auto=format&fit=crop&w=1600&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D',
-          ingredients: '3 large free-range egg yolks, 40 g Parmesan cheese, 150 g pancetta, 1 clove of garlic',
-          method: 'test',
-          favourite: false
-        },
-        {
-          id: uuidv4(),
-          recipeName: 'Lemon & Lobster Risotto',
-          img: 'https://images.unsplash.com/photo-1461009683693-342af2f2d6ce?auto=format&fit=crop&w=4031&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D',
-          ingredients: '2 lobster tails, 1 shallot finely chopped, 2 lemons, 4 cups of chicken or vegetable stock',
-          method: 'test',
-          favourite: false
-        },
-        {
-          id: uuidv4(),
-          recipeName: 'Tagliatelle Mushroom',
-          img: '',
-          ingredients: '10 chestnut mushrooms, finely sliced, 200g fresh spinach, 200ml crème fraîche',
-          method: 'test',
-          favourite: false
-        }
-      ],
+      recipes: [],
       currentRecipe: {recipeName: '', img: '', ingredients: '', method: '', favourite: false},
       currentRecipeId: null,
       modalVisible: false,
@@ -93,14 +70,45 @@ class App extends Component {
   componentDidMount () {
     let recipes = JSON.parse(localStorage.getItem('recipes')) || this.state.recipes
     this.setState({recipes})
-    // this.callApi()
+    this.callApi()
   }
 
   callApi () {
-    fetch('./recipes.json')
-      .then(response => response.json())
-      .then(json => {
-        this.setState({recipes: json});
+    // callApi is using json file from public folder
+
+    // callApi using fetch
+    // fetch('./db.json')
+    // .then(
+    //   (response) => {
+    //     if (response.status !== 200) {
+    //       console.log('Looks like there was a problem. Status Code: ' +
+    //         response.status);
+    //       return;
+    //     }
+  
+    //     response.json().then((data) => {
+    //       console.log(data);
+    //       this.setState({recipes: data.recipes});
+    //   });
+    //   }
+    // )
+    // .catch(function(err) {
+    //   console.log('Fetch Error', err);
+    // });
+
+    // callApi using axios
+    // axios.get('http://localhost:9627/recipes')
+    axios.get('./db.json')
+      .then((response) => {
+        if (response.status !== 200) {
+          console.log('Looks like there was a problem. Status Code: ' +
+            response.status);
+          return;
+        }
+        this.setState({ recipes: response.data.recipes });
+      })
+      .catch(function (error) {
+        console.log(error);
       })
   }
 
