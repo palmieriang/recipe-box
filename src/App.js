@@ -77,7 +77,7 @@ class App extends Component {
     // callApi is using json file from public folder
 
     // callApi using fetch
-    // fetch('./db.json')
+    // fetch('http://localhost:9627/recipes')
     // .then(
     //   (response) => {
     //     if (response.status !== 200) {
@@ -87,8 +87,7 @@ class App extends Component {
     //     }
   
     //     response.json().then((data) => {
-    //       console.log(data);
-    //       this.setState({recipes: data.recipes});
+    //       this.setState({recipes: data});
     //   });
     //   }
     // )
@@ -97,15 +96,14 @@ class App extends Component {
     // });
 
     // callApi using axios
-    // axios.get('http://localhost:9627/recipes')
-    axios.get('./db.json')
+    axios.get('http://localhost:9627/recipes')
       .then((response) => {
         if (response.status !== 200) {
           console.log('Looks like there was a problem. Status Code: ' +
             response.status);
           return;
         }
-        this.setState({ recipes: response.data.recipes });
+        this.setState({ recipes: response.data });
       })
       .catch(function (error) {
         console.log(error);
