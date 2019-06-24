@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/lib/Button'
 import uuidv4 from 'uuid/v4'
 import axios from 'axios'
 
+import Header from './components/Header'
 import RecipesList from './components/RecipesList'
 import RecipeForm from './components/RecipeForm'
 
@@ -171,11 +172,8 @@ class App extends Component {
 
     return (
       <div>
-        <header className="header">
-          <div className="header-text">
-            <h1>Recipe Box</h1>
-          </div>
-        </header>
+        <Header />
+
         <main className="container">
           {recipes.length > 0 && (
             <div>
