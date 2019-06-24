@@ -1,14 +1,11 @@
 import React, {Component} from 'react'
 import './App.css'
 import Button from 'react-bootstrap/lib/Button'
-import Modal from 'react-bootstrap/lib/Modal'
-import FormGroup from 'react-bootstrap/lib/FormGroup'
-import ControlLabel from 'react-bootstrap/lib/ControlLabel'
-import FormControl from 'react-bootstrap/lib/FormControl'
 import uuidv4 from 'uuid/v4'
 import axios from 'axios'
 
 import RecipesList from './components/RecipesList'
+import RecipeForm from './components/RecipeForm'
 
 class App extends Component {
   constructor () {
@@ -188,59 +185,15 @@ class App extends Component {
                 deleteRecipe={this.deleteRecipe}
                 changeFavourite={this.changeFavourite} />
 
-              {currentRecipe && <Modal show={modalVisible} onHide={this.close}>
-                <Modal.Header closeButton>
-                  <Modal.Title>Edit Recipe</Modal.Title>
-                  <Modal.Body>
-                    <FormGroup controlId="formBasicText">
-                      <ControlLabel>Recipe Name</ControlLabel>
-                      <FormControl
-                        type="text"
-                        name="recipeName"
-                        value={currentRecipe.recipeName}
-                        placeholder="Enter Text"
-                        onChange={this.onChange}>
-                      </FormControl>
-                    </FormGroup>
-                    <FormGroup controlId="formControlTextarea">
-                      <ControlLabel>Ingredients</ControlLabel>
-                      <FormControl
-                        componentClass="textarea"
-                        name="ingredients"
-                        value={currentRecipe.ingredients}
-                        placeholder="Enter Ingredients (separate by commas)"
-                        onChange={this.onChange}>
-                      </FormControl>
-                    </FormGroup>
-                    <FormGroup controlId="formControlTextarea">
-                      <ControlLabel>Method</ControlLabel>
-                      <FormControl
-                        componentClass="textarea"
-                        name="method"
-                        value={currentRecipe.method}
-                        placeholder="Method"
-                        onChange={this.onChange}>
-                      </FormControl>
-                    </FormGroup>
-                    <FormGroup controlId="formControlTextarea">
-                      <ControlLabel>Recipe Image URL</ControlLabel>
-                      <FormControl
-                        componentClass="textarea"
-                        name="img"
-                        value={currentRecipe.img}
-                        placeholder="Enter images URL"
-                        onChange={this.onChange}>
-                      </FormControl>
-                    </FormGroup>
-                    {error && <p className="error">{error}</p>}
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Button onClick={this.close}>Close</Button>
-                    <Button onClick={() => this.onSubmit(currentRecipeId)}>Save Recipe</Button>
-                  </Modal.Footer>
-                </Modal.Header>
-              </Modal>
-              }
+              <RecipeForm
+                currentRecipe={currentRecipe}
+                currentRecipeId={currentRecipeId}
+                modalVisible={modalVisible}
+                error={error}
+                onChange={this.onChange}
+                close={this.close}
+                onSubmit={this.onSubmit} />
+
             </div>
           )}
           <Button bsStyle="primary" onClick={() => this.open(uuidv4())}>Add Recipe</Button>
