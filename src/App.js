@@ -59,7 +59,7 @@ class App extends Component {
         }
         this.setState({ recipes: response.data });
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       })
   }
@@ -175,7 +175,7 @@ class App extends Component {
         <Header />
 
         <main className="container">
-          {recipes.length > 0 && (
+          {recipes.length > 0 ? (
             <div>
               <RecipesList
                 recipes={recipes}
@@ -193,6 +193,8 @@ class App extends Component {
                 onSubmit={this.onSubmit} />
 
             </div>
+          ) : (
+            <p>In order to get the recipes, please make sure the server is running: <code>npm run backend</code></p>
           )}
           <Button bsStyle="primary" onClick={() => this.open(uuidv4())}>Add Recipe</Button>
         </main>
