@@ -3,6 +3,7 @@ import './App.css'
 import Button from 'react-bootstrap/lib/Button'
 import uuidv4 from 'uuid/v4'
 import axios from 'axios'
+import {getRecipe} from './api/recipesApi'
 
 import Header from './components/Header'
 import RecipesList from './components/RecipesList'
@@ -28,33 +29,26 @@ class App extends Component {
   }
 
   callApi () {
-    // callApi is using json file from public folder
-
     // callApi using fetch
     // fetch('http://localhost:9627/recipes')
-    // .then(
-    //   (response) => {
+    //   .then((response) => {
     //     if (response.status !== 200) {
-    //       console.log('Looks like there was a problem. Status Code: ' +
-    //         response.status);
+    //       console.log('Looks like there was a problem. Status Code: ' + response.status);
     //       return;
     //     }
-  
     //     response.json().then((data) => {
     //       this.setState({recipes: data});
-    //   });
-    //   }
-    // )
-    // .catch(function(err) {
-    //   console.log('Fetch Error', err);
-    // });
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     console.log('Fetch Error', error);
+    //   })
 
     // callApi using axios
-    axios.get('http://localhost:9627/recipes')
+    getRecipe()
       .then((response) => {
         if (response.status !== 200) {
-          console.log('Looks like there was a problem. Status Code: ' +
-            response.status);
+          console.log('Looks like there was a problem. Status Code: ' + response.status);
           return;
         }
         this.setState({ recipes: response.data });
@@ -62,6 +56,21 @@ class App extends Component {
       .catch((error) => {
         console.log(error);
       })
+  }
+
+  addRecipe (currentRecipe) {
+    axios.post('http://localhost:9627/recipes', {
+      id: currentRecipe.id,
+      recipeName: currentRecipe.recipeName,
+      img: currentRecipe.img,
+      ingredients: currentRecipe.ingredients,
+      method: currentRecipe.method,
+      favourite: currentRecipe.favourite
+    }).then(response => {
+        console.log(response.data);
+    }).catch(error => {
+        console.log(error);
+    })
   }
 
   onChange = event => {
@@ -117,12 +126,7 @@ class App extends Component {
       this.resetModal()
     } else {
       if(this.validate(currentRecipe)) {
-        this.setState({
-          recipes: [
-            ...recipes,
-            currentRecipe
-          ]
-        })
+        this.addRecipe(currentRecipe)
         this.resetModal()
       }
     }
