@@ -2,8 +2,7 @@ import React, {Component} from 'react'
 import './App.css'
 import Button from 'react-bootstrap/lib/Button'
 import uuidv4 from 'uuid/v4'
-import axios from 'axios'
-import {getRecipe} from './api/recipesApi'
+import {getRecipe, addRecipe, modifyRecipe} from './api/recipesApi'
 
 import Header from './components/Header'
 import RecipesList from './components/RecipesList'
@@ -28,6 +27,17 @@ class App extends Component {
     this.callApi()
   }
 
+  onChange = event => {
+    const {currentRecipe} = this.state
+
+    this.setState({
+      currentRecipe: {
+        ...currentRecipe,
+        [event.target.name]: event.target.value
+      }
+    })
+  }
+
   callApi () {
     // callApi using fetch
     // fetch('http://localhost:9627/recipes')
@@ -44,7 +54,6 @@ class App extends Component {
     //     console.log('Fetch Error', error);
     //   })
 
-    // callApi using axios
     getRecipe()
       .then((response) => {
         if (response.status !== 200) {
@@ -58,29 +67,26 @@ class App extends Component {
       })
   }
 
-  addRecipe (currentRecipe) {
-    axios.post('http://localhost:9627/recipes', {
-      id: currentRecipe.id,
-      recipeName: currentRecipe.recipeName,
-      img: currentRecipe.img,
-      ingredients: currentRecipe.ingredients,
-      method: currentRecipe.method,
-      favourite: currentRecipe.favourite
-    }).then(response => {
+  newRecipe (currentRecipe) {
+    addRecipe(currentRecipe)
+    .then(response => {
         console.log(response.data);
     }).catch(error => {
         console.log(error);
     })
   }
 
-  onChange = event => {
-    const {currentRecipe} = this.state
-
-    this.setState({
-      currentRecipe: {
-        ...currentRecipe,
-        [event.target.name]: event.target.value
+  updateRecipe (recipe) {
+    modifyRecipe(recipe)
+    .then((response) => {
+      if (response.status !== 200) {
+        console.log('Looks like there was a problem. Status Code: ' + response.status);
+        return;
       }
+      this.setState({ recipes: response.data });
+    })
+    .catch((error) => {
+      console.log(error);
     })
   }
 
@@ -116,17 +122,11 @@ class App extends Component {
     const existingRecipe = recipes.find(recipe => recipe.id === id)
 
     if (existingRecipe) {
-      const recipes = this.state.recipes.map(recipe => {
-        if(recipe.id === currentRecipe.id) {
-          return currentRecipe
-        }
-        return recipe
-      })
-      this.setState({recipes})
+      this.updateRecipe(currentRecipe)
       this.resetModal()
     } else {
       if(this.validate(currentRecipe)) {
-        this.addRecipe(currentRecipe)
+        this.newRecipe(currentRecipe)
         this.resetModal()
       }
     }
