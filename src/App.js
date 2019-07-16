@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import './App.css'
 import Button from 'react-bootstrap/lib/Button'
 import uuidv4 from 'uuid/v4'
-import {getRecipe, addRecipe, modifyRecipe} from './api/recipesApi'
+import {getRecipe, addRecipe, modifyRecipe, removeRecipe} from './api/recipesApi'
 
 import Header from './components/Header'
 import RecipesList from './components/RecipesList'
@@ -22,8 +22,6 @@ class App extends Component {
   }
 
   componentDidMount () {
-    let recipes = JSON.parse(localStorage.getItem('recipes')) || this.state.recipes
-    this.setState({recipes})
     this.callApi()
   }
 
@@ -90,11 +88,11 @@ class App extends Component {
     })
   }
 
-  deleteRecipe (index) {
-    const recipes = this.state.recipes.slice()
-    recipes.splice(index, 1)
-    this.setState({recipes})
-    localStorage.setItem('recipes', JSON.stringify(recipes))
+  deleteRecipe (id) {
+    // const recipes = this.state.recipes.slice()
+    // recipes.splice(index, 1)
+    // this.setState({recipes})
+    removeRecipe(id)
   }
 
   validate (recipe) {
@@ -168,7 +166,6 @@ class App extends Component {
     let recipes = this.state.recipes.slice()
     recipes[index].favourite = !recipes[index].favourite
     this.setState({recipes})
-    localStorage.setItem('recipes', JSON.stringify(recipes))
   }
 
   render () {

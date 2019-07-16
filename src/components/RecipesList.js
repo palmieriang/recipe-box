@@ -38,7 +38,7 @@ class RecipesList extends Component {
             </div>
             <ButtonToolbar className="recipe-btn">
               <Button bsStyle="info" onClick={() => open(recipe.id)}>Edit Recipe</Button>
-              <Button bsStyle="danger" onClick={() => deleteRecipe(index)}>Delete Recipe</Button>
+              <Button bsStyle="danger" onClick={() => deleteRecipe(recipe.id)}>Delete Recipe</Button>
             </ButtonToolbar>
           </Panel>
           ))}

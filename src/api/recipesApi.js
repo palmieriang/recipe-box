@@ -4,12 +4,16 @@ export function getRecipe() {
   return get()
 }
 
-export function addRecipe(currentRecipe) {
-  return add(currentRecipe)
+export function addRecipe(recipe) {
+  return add(recipe)
 }
 
 export function modifyRecipe(currentRecipe) {
   return modify(currentRecipe)
+}
+
+export function removeRecipe(recipe) {
+  return remove(recipe)
 }
 
 function get() {
@@ -38,6 +42,11 @@ function modify(recipe) {
       method: recipe.method,
       favourite: recipe.favourite
     })
+    .then(onSuccess, onError)
+}
+
+function remove(id) {
+  return axios.delete(`http://localhost:9627/recipes/${id}`)
     .then(onSuccess, onError)
 }
 
