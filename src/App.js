@@ -18,7 +18,6 @@ class App extends Component {
       modalVisible: false,
       error: ''
     }
-    this.deleteRecipe = this.deleteRecipe.bind(this);
   }
 
   componentDidMount () {
@@ -67,31 +66,28 @@ class App extends Component {
 
   newRecipe (currentRecipe) {
     addRecipe(currentRecipe)
-    .then(response => {
-        console.log(response.data);
-    }).catch(error => {
-        console.log(error);
-    })
+      .then(response => {
+          console.log(response.data);
+      }).catch(error => {
+          console.log(error);
+      })
   }
 
   updateRecipe (recipe) {
     modifyRecipe(recipe)
-    .then((response) => {
-      if (response.status !== 200) {
-        console.log('Looks like there was a problem. Status Code: ' + response.status);
-        return;
-      }
-      this.setState({ recipes: response.data });
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+      .then((response) => {
+        if (response.status !== 200) {
+          console.log('Looks like there was a problem. Status Code: ' + response.status);
+          return;
+        }
+        this.setState({ recipes: response.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   deleteRecipe (id) {
-    // const recipes = this.state.recipes.slice()
-    // recipes.splice(index, 1)
-    // this.setState({recipes})
     removeRecipe(id)
   }
 
@@ -162,10 +158,11 @@ class App extends Component {
     this.close()
   }
 
-  changeFavourite = index => {
-    let recipes = this.state.recipes.slice()
-    recipes[index].favourite = !recipes[index].favourite
-    this.setState({recipes})
+  changeFavourite = id => {
+    const {recipes} = this.state
+    const recipe = recipes.find(recipe => recipe.id === id)
+    recipe.favourite = !recipe.favourite
+    this.updateRecipe(recipe)
   }
 
   render () {

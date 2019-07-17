@@ -19,7 +19,7 @@ class RecipesList extends Component {
             {recipe.img && <div className="recipe-image">
                 <img src={recipe.img} alt={recipe.recipeName} width="100%"/>
             </div>}
-            <h2 className="recipe-name">{recipe.recipeName} <img className="icon-favourite" src={recipe.favourite ? heartfull : heartempty} alt='heart' onClick={() => changeFavourite(index)} /></h2>
+            <h2 className="recipe-name">{recipe.recipeName} <img className="icon-favourite" src={recipe.favourite ? heartfull : heartempty} alt='heart' onClick={() => changeFavourite(recipe.id)} /></h2>
             </div>
         } eventKey={index} key={index}>
             <div className="recipe-body">
