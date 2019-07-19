@@ -16,6 +16,10 @@ export function removeRecipe(recipe) {
   return remove(recipe)
 }
 
+export function searchRecipe(query) {
+  return search(query)
+}
+
 function get() {
   return axios.get('http://localhost:9627/recipes')
     .then(onSuccess, onError)
@@ -47,6 +51,11 @@ function modify(recipe) {
 
 function remove(id) {
   return axios.delete(`http://localhost:9627/recipes/${id}`)
+    .then(onSuccess, onError)
+}
+
+function search(query) {
+  return axios.get(`http://localhost:9627/recipes?q=${query}`)
     .then(onSuccess, onError)
 }
 
