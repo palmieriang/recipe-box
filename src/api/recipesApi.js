@@ -20,6 +20,10 @@ export function searchRecipe(query) {
   return search(query)
 }
 
+export function sortRecipes() {
+  return sort()
+}
+
 function get() {
   return axios.get('http://localhost:9627/recipes')
     .then(onSuccess, onError)
@@ -57,6 +61,11 @@ function remove(id) {
 function search(query) {
   return axios.get(`http://localhost:9627/recipes?q=${query}`)
     .then(onSuccess, onError)
+}
+
+function sort() {
+  return axios.get('http://localhost:9627/recipes?_sort=recipeName&_order=asc')
+  .then(onSuccess, onError)
 }
 
 function onSuccess(response) {
