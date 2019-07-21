@@ -2,11 +2,12 @@ import React, {Component} from 'react'
 import './App.css'
 import Button from 'react-bootstrap/lib/Button'
 import uuidv4 from 'uuid/v4'
-import {getRecipe, addRecipe, modifyRecipe, removeRecipe} from './api/recipesApi'
+import {getRecipe, addRecipe, modifyRecipe, removeRecipe, searchRecipe} from './api/recipesApi'
 
 import Header from './components/Header'
 import RecipesList from './components/RecipesList'
 import RecipeForm from './components/RecipeForm'
+import SearchBar from './components/SearchBar'
 
 class App extends Component {
   constructor () {
@@ -16,7 +17,8 @@ class App extends Component {
       currentRecipe: {recipeName: '', img: '', ingredients: '', method: '', favourite: false},
       currentRecipeId: null,
       modalVisible: false,
-      error: ''
+      error: '',
+      searchValue: ''
     }
   }
 
@@ -165,14 +167,39 @@ class App extends Component {
     this.updateRecipe(recipe)
   }
 
+  changeQuery = event => {
+    this.setState({
+      searchValue: event.target.value
+    })
+  }
+
+  searchBar = event => {
+    event.preventDefault();
+    searchRecipe(this.state.searchValue)
+      .then((response) => {
+        if (response.status !== 200) {
+          console.log('Looks like there was a problem. Status Code: ' + response.status);
+          return;
+        }
+        this.setState({ recipes: response.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
+
   render () {
-    const {recipes, currentRecipeId, modalVisible, currentRecipe, error} = this.state
+    const {recipes, currentRecipeId, modalVisible, currentRecipe, error, value} = this.state
 
     return (
-      <div>
+      <main>
         <Header />
 
-        <main className="container">
+        <div className="container">
+          <SearchBar searchBar={this.searchBar} searchValue={value} onChange={this.changeQuery} />
+        </div>
+
+        <div className="container">
           {recipes.length > 0 ? (
             <div>
               <RecipesList
@@ -195,8 +222,8 @@ class App extends Component {
             <p>In order to get the recipes, please make sure the server is running: <code>npm run backend</code></p>
           )}
           <Button bsStyle="primary" onClick={() => this.open(uuidv4())}>Add Recipe</Button>
-        </main>
-      </div>
+        </div>
+      </main>
     )
   }
 }
