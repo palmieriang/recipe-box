@@ -31,6 +31,7 @@ class SearchBar extends Component {
             <form className={'search-bar' + (this.state.focused ? ' focused' : '') } onSubmit={searchBar}>
                 <label htmlFor="search-recipe">Search recipe</label>
                 <input id="search-recipe" type="text" placeholder="" value={searchValue} onFocus={this.onFocus} onBlur={(event) => this.onBlur(event)} onChange={onChange} />
+                <button className="btn btn-primary" onSubmit={searchBar}><span className="visually-hidden">Search</span></button>
             </form>
         )
     }
