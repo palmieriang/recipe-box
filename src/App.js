@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import './App.css'
 import Button from 'react-bootstrap/lib/Button'
 import uuidv4 from 'uuid/v4'
-import {getRecipe, addRecipe, modifyRecipe, removeRecipe, searchRecipe} from './api/recipesApi'
+import {getRecipe, addRecipe, modifyRecipe, removeRecipe, searchRecipe, sortRecipes} from './api/recipesApi'
 
 import Header from './components/Header'
 import RecipesList from './components/RecipesList'
@@ -38,21 +38,6 @@ class App extends Component {
   }
 
   callApi () {
-    // callApi using fetch
-    // fetch('http://localhost:9627/recipes')
-    //   .then((response) => {
-    //     if (response.status !== 200) {
-    //       console.log('Looks like there was a problem. Status Code: ' + response.status);
-    //       return;
-    //     }
-    //     response.json().then((data) => {
-    //       this.setState({recipes: data});
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     console.log('Fetch Error', error);
-    //   })
-
     getRecipe()
       .then((response) => {
         if (response.status !== 200) {
@@ -91,6 +76,20 @@ class App extends Component {
 
   deleteRecipe (id) {
     removeRecipe(id)
+  }
+
+  orderRecipes = () => {
+    sortRecipes()
+      .then((response) => {
+        if (response.status !== 200) {
+          console.log('Looks like there was a problem. Status Code: ' + response.status);
+          return;
+        }
+        this.setState({ recipes: response.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   validate (recipe) {
@@ -197,6 +196,12 @@ class App extends Component {
 
         <div className="container">
           <SearchBar searchBar={this.searchBar} searchValue={value} onChange={this.changeQuery} />
+        </div>
+
+        <div className="container order-recipes">
+          <Button onClick={this.orderRecipes}>
+            <span className="visually-hidden">Order recipes</span>
+          </Button>
         </div>
 
         <div className="container">
