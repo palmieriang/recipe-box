@@ -1,6 +1,10 @@
+html {
+  font-size: calc(1em * .625);
+}
+
 .header {
   background-color: #222;
-  height: 150px;
+  height: 15rem;
   color: white;
   background-image: url("https://images.unsplash.com/photo-1495195134817-aeb325a55b65?auto=format&fit=crop&w=1355&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D");
   background-size: cover;
@@ -14,17 +18,17 @@
     width: 100%;
     background: rgba(0, 0, 0, 0.2);
     color: white;
-    text-shadow: 1px 1px 1px #3e3e3e;
-    letter-spacing: 5px;
+    text-shadow: 0.1rem 0.1rem 0.1rem #3e3e3e;
+    letter-spacing: 0.5rem;
   }
 }
 
 .container {
-  margin: 20px auto;
+  margin: 2rem auto;
 }
 
 .recipe-box {
-  box-shadow: 1px 1px 5px -3px black;
+  box-shadow: 0.1rem 0.1rem 0.5rem -0.3rem black;
 }
 
 .recipe-image:hover img,
@@ -33,7 +37,7 @@
 }
 
 .recipe-image {
-  height: 200px;
+  height: 20rem;
   position: relative;
   overflow: hidden;
 
@@ -50,7 +54,7 @@
 }
 
 .recipe-name {
-  font-size: 19px;
+  font-size: 1.9rem;
   cursor: pointer;
   text-align: center;
 }
@@ -64,7 +68,7 @@
 
     ul {
       list-style-type: circle;
-      padding-left: 20px;
+      padding-left: 2rem;
     }
   }
 
@@ -77,9 +81,10 @@
   text-align: center;
 
   button {
-    padding: 10px;
-    margin: 5px 10px;
+    padding: 1rem;
+    margin: 0.5rem 1rem;
     float: none !important;
+    transition: 0.5s;
   }
 }
 
@@ -104,10 +109,110 @@
 
 .icon-favourite {
   float: right;
-  margin-right: 5px;
+  margin-right: 0.5rem;
 }
 
 textarea {
   resize: vertical;
-  max-height: 250px;
+  max-height: 25rem;
+}
+
+.search-bar {
+  position: relative;
+  margin: 2rem 0;
+  box-shadow: 0.1rem 0.1rem 0.5rem -0.3rem black;
+  border-radius: 0.4rem;
+
+  input {
+    width: 100%;
+    padding: 1.5rem 1rem;
+    background-color: #f5f5f5;
+    border: 0.1rem solid #ddd;
+    border-radius: 0.4rem;
+    font-size: 1.7rem;
+    color: #424f55;
+  }
+
+  label {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    font-weight: 500;
+    font-size: 1.7rem;
+    color: #424f55;
+    -webkit-transition: bottom .35s ease-in-out;
+    transition: bottom .35s ease-in-out;
+  }
+
+  button {
+    position: absolute;
+    height: 75%;
+    top: 0;
+    right: 1.5rem;
+    bottom: 0;
+    margin: auto;
+    padding: 0 3.5rem;
+    border-radius: 0.4rem;
+    transition: 0.5s;
+
+    &::before {
+      content: '';
+      position: absolute;
+      height: 70%;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' id='Capa_1' x='0px' y='0px' viewBox='0 0 56.966 56.966' style='enable-background:new 0 0 56.966 56.966;fill: %23ffffff;' xml:space='preserve'%3E%3Cpath d='M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23 s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92 c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17 s-17-7.626-17-17S14.61,6,23.984,6z'/%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    &:hover,
+    &:active {
+      &::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' id='Capa_1' x='0px' y='0px' viewBox='0 0 56.966 56.966' style='enable-background:new 0 0 56.966 56.966;fill: %23204d74;' xml:space='preserve'%3E%3Cpath d='M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23 s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92 c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17 s-17-7.626-17-17S14.61,6,23.984,6z'/%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3C/svg%3E");
+      }
+    }
+  }
+
+  &.focused {
+    label {
+      bottom: -3rem;
+    }
+  }
+}
+
+.order-recipes {
+  text-align: right;
+  margin: -2rem auto -1rem;
+
+  button {
+    position: relative;
+    padding: 1rem 2rem;
+
+    &::before {
+      content: '';
+      position: absolute;
+      height: 70%;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+      background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 129 129' xmlns:xlink='http://www.w3.org/1999/xlink' enable-background='new 0 0 129 129'%3E%3Cg%3E%3Cpath d='m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z'/%3E%3C/g%3E%3C/svg%3E%0A");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  left: -1000rem;
+  top: auto;
+  width: 0.1rem;
+  height: 0.1rem;
+  overflow:hidden;
 }
