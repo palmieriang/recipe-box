@@ -8,6 +8,7 @@ import Header from './components/Header'
 import RecipesList from './components/RecipesList'
 import RecipeForm from './components/RecipeForm'
 import SearchBar from './components/SearchBar'
+import OrderRecipes from './components/OrderRecipes'
 
 class App extends Component {
   constructor () {
@@ -78,8 +79,8 @@ class App extends Component {
     removeRecipe(id)
   }
 
-  orderRecipes = () => {
-    sortRecipes()
+  orderRecipes = (order) => {
+    sortRecipes(order)
       .then((response) => {
         if (response.status !== 200) {
           console.log('Looks like there was a problem. Status Code: ' + response.status);
@@ -198,11 +199,7 @@ class App extends Component {
           <SearchBar searchBar={this.searchBar} searchValue={value} onChange={this.changeQuery} />
         </div>
 
-        <div className="container order-recipes">
-          <Button onClick={this.orderRecipes}>
-            <span className="visually-hidden">Order recipes</span>
-          </Button>
-        </div>
+        <OrderRecipes orderRecipes={this.orderRecipes} />
 
         <div className="container">
           {recipes.length > 0 ? (
