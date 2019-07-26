@@ -26,7 +26,7 @@ class OrderRecipes extends Component {
 
     render() {
         return (
-            <div className="container order-recipes">
+            <div className={"container order-recipes " + this.state.order}>
                 <Button onClick={this.changeOrder}>
                     <span className="visually-hidden">Order recipes</span>
                 </Button>
