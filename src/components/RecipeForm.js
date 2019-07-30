@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
-import Button from 'react-bootstrap/lib/Button'
-import Modal from 'react-bootstrap/lib/Modal'
-import FormGroup from 'react-bootstrap/lib/FormGroup'
-import ControlLabel from 'react-bootstrap/lib/ControlLabel'
-import FormControl from 'react-bootstrap/lib/FormControl'
+import Button from 'react-bootstrap/Button'
+import Modal from 'react-bootstrap/Modal'
+import FormGroup from 'react-bootstrap/FormGroup'
+import FormLabel from 'react-bootstrap/FormLabel'
+import FormControl from 'react-bootstrap/FormControl'
 
 class RecipeForm extends Component {
   render() {
@@ -11,12 +11,12 @@ class RecipeForm extends Component {
 
     return (
       <div>
-        {currentRecipe && <Modal show={modalVisible} onHide={this.close}>
+        {currentRecipe && <Modal show={modalVisible} onHide={close}>
           <Modal.Header closeButton>
             <Modal.Title>Edit Recipe</Modal.Title>
             <Modal.Body>
               <FormGroup controlId="formBasicText">
-                <ControlLabel>Recipe Name</ControlLabel>
+                <FormLabel>Recipe Name</FormLabel>
                 <FormControl
                   type="text"
                   name="recipeName"
@@ -26,9 +26,9 @@ class RecipeForm extends Component {
                 </FormControl>
               </FormGroup>
               <FormGroup controlId="formControlTextarea">
-                <ControlLabel>Ingredients</ControlLabel>
+                <FormLabel>Ingredients</FormLabel>
                 <FormControl
-                  componentClass="textarea"
+                  as="textarea"
                   name="ingredients"
                   value={currentRecipe.ingredients}
                   placeholder="Enter Ingredients (separate by commas)"
@@ -36,9 +36,9 @@ class RecipeForm extends Component {
                 </FormControl>
               </FormGroup>
               <FormGroup controlId="formControlTextarea">
-                <ControlLabel>Method</ControlLabel>
+                <FormLabel>Method</FormLabel>
                 <FormControl
-                  componentClass="textarea"
+                  as="textarea"
                   name="method"
                   value={currentRecipe.method}
                   placeholder="Method"
@@ -46,9 +46,9 @@ class RecipeForm extends Component {
                 </FormControl>
               </FormGroup>
               <FormGroup controlId="formControlTextarea">
-                <ControlLabel>Recipe Image URL</ControlLabel>
+                <FormLabel>Recipe Image URL</FormLabel>
                 <FormControl
-                  componentClass="textarea"
+                  as="textarea"
                   name="img"
                   value={currentRecipe.img}
                   placeholder="Enter images URL"

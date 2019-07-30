@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import './App.css'
-import Button from 'react-bootstrap/lib/Button'
+import Button from 'react-bootstrap/Button'
+// import Spinner from 'react-bootstrap/Spinner'
 import uuidv4 from 'uuid/v4'
 import {getRecipe, addRecipe, modifyRecipe, removeRecipe, searchRecipe, sortRecipes} from './api/recipesApi'
 
@@ -223,7 +224,7 @@ class App extends Component {
           ) : (
             <p>In order to get the recipes, please make sure the server is running: <code>npm run backend</code></p>
           )}
-          <Button bsStyle="primary" onClick={() => this.open(uuidv4())}>Add Recipe</Button>
+          <Button variant="primary" onClick={() => this.open(uuidv4())}>Add Recipe</Button>
         </div>
       </main>
     )

@@ -29,8 +29,14 @@ html {
 
 .recipe-box {
   box-shadow: 0.1rem 0.1rem 0.5rem -0.3rem black;
-}
 
+  .recipe-header {
+    width: 100%;
+  }
+}
+button.recipe-header {
+  width: 100%;
+}
 .recipe-image:hover img,
 .recipe-image:focus img {
   transform: scale(1.1);
